@@ -1,16 +1,16 @@
 <?
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/user.php';
+include_once '../../sys/inc/start.php';
+include_once '../../sys/inc/compress.php';
+include_once '../../sys/inc/sess.php';
+include_once '../../sys/inc/home.php';
+include_once '../../sys/inc/settings.php';
+include_once '../../sys/inc/db_connect.php';
+include_once '../../sys/inc/ipua.php';
+include_once '../../sys/inc/fnc.php';
+include_once '../../sys/inc/user.php';
 only_reg();
 $set['title'] = '开心农场 :: 农民';
-include_once '../sys/inc/thead.php';
+include_once '../../sys/inc/thead.php';
 title();
 aut();
 
@@ -48,7 +48,7 @@ while ($ank = dbarray($q)) {
 
     if ($ank['uid'] != $user['id']) {
         echo "" . online($ank['uid']) . " ";
-        echo "<a href='/farm/fermers_gr.php?id=" . $fank['id'] . "'>" . $fank['nick'] . "</a> (" . $cntgr . ")";
+        echo "<a href='/plugins/farm/fermers_gr.php?id=" . $fank['id'] . "'>" . $fank['nick'] . "</a> (" . $cntgr . ")";
     } else {
         echo "" . online($fank['id']) . " ";
         echo "" . $fank['nick'] . " (" . $cntgr . ")";
@@ -85,7 +85,7 @@ while ($ank = dbarray($q)) {
 if ($k_page > 1) str("?", $k_page, $page); // Вывод страниц
 
 echo "<div class='rowdown'>";
-echo "<img src='/farm/img/garden.png' alt='' class='rpg' /> <a href='/farm/garden/'>我的农场</a>";
+echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的农场</a>";
 echo "</div>";
 
-include_once '../sys/inc/tfoot.php';
+include_once '../../sys/inc/tfoot.php';

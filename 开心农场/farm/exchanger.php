@@ -1,16 +1,16 @@
 <?
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/user.php';
+include_once '../../sys/inc/start.php';
+include_once '../../sys/inc/compress.php';
+include_once '../../sys/inc/sess.php';
+include_once '../../sys/inc/home.php';
+include_once '../../sys/inc/settings.php';
+include_once '../../sys/inc/db_connect.php';
+include_once '../../sys/inc/ipua.php';
+include_once '../../sys/inc/fnc.php';
+include_once '../../sys/inc/user.php';
 only_reg();
 $set['title'] = '开心农场 :: 交易所';
-include_once '../sys/inc/thead.php';
+include_once '../../sys/inc/thead.php';
 title();
 aut();
 
@@ -43,8 +43,8 @@ farm_event();
 
 if (isset($_GET['gems'])) {
     echo "<div class='rowup'>";
-    echo "&raquo; 农场帐户: <img src='/farm/img/gems.png' alt='' class='rpg' />" . sklon_after_number("$fuser[gems]", "钻石", "钻石", "钻石", 1) . "<br />";
-    echo "&raquo; 网站帐户: <img src='/farm/img/money.png' alt='' class='rpg' />" . sklon_after_number("$user[balls]", "积分", "积分", "积分", 1) . "点<br />";
+    echo "&raquo; 农场帐户: <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />" . sklon_after_number("$fuser[gems]", "钻石", "钻石", "钻石", 1) . "<br />";
+    echo "&raquo; 网站帐户: <img src='/plugins/farm/img/money.png' alt='' class='rpg' />" . sklon_after_number("$user[balls]", "积分", "积分", "积分", 1) . "点<br />";
     echo "&raquo; 1 颗钻石价值 1000点 网站积分<br />";
     echo "<form action='?gems_exchange' method='post'>";
     echo "&raquo; 输入要兑换的钻石数量:<br />";
@@ -53,8 +53,8 @@ if (isset($_GET['gems'])) {
 }
 if (isset($_GET['gold'])) {
     echo "<div class='rowup'>";
-    echo "&raquo; 农场帐户: <img src='/farm/img/money.png' alt='' class='rpg' />" . sklon_after_number("$fuser[gold]", "金币", "金币", "金币", 1) . "<br />";
-    echo "&raquo; 网站帐户: <img src='/farm/img/money.png' alt='' class='rpg' />" . sklon_after_number("$user[balls]", "积分", "积分", "积分", 1) . "点<br />";
+    echo "&raquo; 农场帐户: <img src='/plugins/farm/img/money.png' alt='' class='rpg' />" . sklon_after_number("$fuser[gold]", "金币", "金币", "金币", 1) . "<br />";
+    echo "&raquo; 网站帐户: <img src='/plugins/farm/img/money.png' alt='' class='rpg' />" . sklon_after_number("$user[balls]", "积分", "积分", "积分", 1) . "点<br />";
     echo "&raquo; 1 枚金币将价值 10点 网站积分<br />";
     echo "<form action='?gold_exchange' method='post'>";
     echo "&raquo; 输入要兑换的金币点数:<br />";
@@ -63,9 +63,9 @@ if (isset($_GET['gold'])) {
 }
 
 echo "<div class='rowdown'>";
-echo "<img src='/farm/img/gems.png' alt='' class='rpg' /> <a href='?gems'>网站积分兑换钻石</a> (1000:1)";
+echo "<img src='/plugins/farm/img/gems.png' alt='' class='rpg' /> <a href='?gems'>网站积分兑换钻石</a> (1000:1)";
 echo "</div>";
 echo "<div class='rowup'>";
-echo "<img src='/farm/img/money.png' alt='' class='rpg' /> <a href='?gold'>网站积分兑换成硬币</a> (10:1)";
+echo "<img src='/plugins/farm/img/money.png' alt='' class='rpg' /> <a href='?gold'>网站积分兑换成硬币</a> (10:1)";
 echo "</div>";
-include_once '../sys/inc/tfoot.php';
+include_once '../../sys/inc/tfoot.php';

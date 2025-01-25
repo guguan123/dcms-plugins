@@ -4,7 +4,7 @@ $int = intval(htmlspecialchars($_GET['id']));
 $query = dbquery("select * from `farm_udobr_name` WHERE  `id` = '$int'  LIMIT 1");
 $chk = dbrows($query);
 if ($chk == 0) {
-    header("Location: /farm/shop_udobr.php");
+    header("Location: /plugins/farm/shop_udobr.php");
     exit();
 }
 $post = dbarray($query);
@@ -24,7 +24,7 @@ if ($minutefield > 0) $minutefield = $minutefield . "分";
 else $minutefield = '';
 $time_1 = $day . $hourfield . "时" . $minutefield;
 
-echo "<div class='rowdown'><img src='/farm/udobr/" . $post['id'] . ".png' alt=''><br />&raquo; <b>" . $post['name'] . "</b>";
+echo "<div class='rowdown'><img src='/plugins/farm/udobr/" . $post['id'] . ".png' alt=''><br />&raquo; <b>" . $post['name'] . "</b>";
 echo "<br />&raquo; 价格: <b> " . $post['cena'] . "</b>";
 echo "<br />&raquo; 减少<b> " . $time_1 . "</b> 植物生长时间";
 

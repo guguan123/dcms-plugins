@@ -1,16 +1,16 @@
 <?php
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/user.php';
+include_once '../../sys/inc/start.php';
+include_once '../../sys/inc/compress.php';
+include_once '../../sys/inc/sess.php';
+include_once '../../sys/inc/home.php';
+include_once '../../sys/inc/settings.php';
+include_once '../../sys/inc/db_connect.php';
+include_once '../../sys/inc/ipua.php';
+include_once '../../sys/inc/fnc.php';
+include_once '../../sys/inc/user.php';
 only_reg();
 $set['title'] = '开心农场 :: 帮助';
-include_once '../sys/inc/thead.php';
+include_once '../../sys/inc/thead.php';
 title();
 err();
 aut();
@@ -51,7 +51,7 @@ if (isset($_GET['weather'])) {
         }
     }
 
-    echo "<img src='/farm/img/garden.png' alt='' class='rpg' />当前天气: <img src='/farm/weather/" . $fconf['weather'] . ".png' alt='' />" . $name . "<br />";
+    echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' />当前天气: <img src='/plugins/farm/weather/" . $fconf['weather'] . ".png' alt='' />" . $name . "<br />";
     echo "<img src='/img/add.png' alt='' class='rpg' /> 影响: " . $uro . " ";
     if (isset($mess)) {
         echo "(" . $uron . ") ";
@@ -72,7 +72,7 @@ if (!isset($_GET['weather'])) {
 }
 
 echo "</div><div class='rowup'>";
-echo "<img src='/img/back.png' alt='返回' class='rpg' /> <a href='/farm/garden/'>我的土地</a><br/>";
+echo "<img src='/img/back.png' alt='返回' class='rpg' /> <a href='/plugins/farm/garden/'>我的土地</a><br/>";
 echo "</div>";
 
-include_once '../sys/inc/tfoot.php';
+include_once '../../sys/inc/tfoot.php';

@@ -1,17 +1,17 @@
 <?php
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/user.php';
+include_once '../../sys/inc/start.php';
+include_once '../../sys/inc/compress.php';
+include_once '../../sys/inc/sess.php';
+include_once '../../sys/inc/home.php';
+include_once '../../sys/inc/settings.php';
+include_once '../../sys/inc/db_connect.php';
+include_once '../../sys/inc/ipua.php';
+include_once '../../sys/inc/fnc.php';
+include_once '../../sys/inc/user.php';
 
 
 $set['title'] = '买狗';
-include_once '../sys/inc/thead.php';
+include_once '../../sys/inc/thead.php';
 title();
 err();
 aut();
@@ -41,7 +41,7 @@ if ($level >= 5) {
     farm_event();
 
     echo "<div class='rowup'><center><img src='img/dog.png'></center><br />\n";
-    echo "&raquo; 购买一只狗将花费你<img src='/farm/img/money.png' /> " . $cena . "<br />\n";
+    echo "&raquo; 购买一只狗将花费你<img src='/plugins/farm/img/money.png' /> " . $cena . "<br />\n";
     echo "&raquo; 这只狗活了 15 天。\n";
 
     if ($dg != 0) {
@@ -58,10 +58,10 @@ if ($level >= 5) {
     }
 
     echo "</div><div class='rowdown'>";
-    echo "<img src='/farm/img/garden.png' class='rpg' /> <a href='/farm/garden/'>我的农场</a><br/>";
+    echo "<img src='/plugins/farm/img/garden.png' class='rpg' /> <a href='/plugins/farm/garden/'>我的农场</a><br/>";
     echo "&laquo; <a href='index.php'>返回</a><br/>";
     echo "</div>";
 } else {
     echo "<div class='err'>你的等级不允许你购买狗。你需要一个高于 5 的等级。</div>";
 }
-include_once '../sys/inc/tfoot.php';
+include_once '../../sys/inc/tfoot.php';

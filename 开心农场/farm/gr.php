@@ -1,20 +1,20 @@
 <?php
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/user.php';
+include_once '../../sys/inc/start.php';
+include_once '../../sys/inc/compress.php';
+include_once '../../sys/inc/sess.php';
+include_once '../../sys/inc/home.php';
+include_once '../../sys/inc/settings.php';
+include_once '../../sys/inc/db_connect.php';
+include_once '../../sys/inc/ipua.php';
+include_once '../../sys/inc/fnc.php';
+include_once '../../sys/inc/user.php';
 only_reg();
 $set['title'] = '开心农场 :: 花园';
-include_once '../sys/inc/thead.php';
+include_once '../../sys/inc/thead.php';
 title();
 err();
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    header("Location: /farm/garden/");
+    header("Location: /plugins/farm/garden/");
     exit;
 }
 
@@ -33,7 +33,7 @@ if (isset($_GET['unxp'])) {
 
 if (isset($_GET['unxpmy'])) {
     add_farm_event('[red]错误![/red] 要执行此操作，您需要补充[b]健康[/b]');
-    header("Location: /farm/garden/");
+    header("Location: /plugins/farm/garden/");
     exit;
 }
 
@@ -57,13 +57,13 @@ if (isset($_GET['sob_okmy'])) {
     add_farm_event('成功组装 ' . $semen1['name'] . '. 经验 +' . intval($_SESSION['opyt']) . ', 健康 -2.');
     unset($_SESSION['pid']);
     unset($_SESSION['opyt']);
-    header("Location: /farm/garden/");
+    header("Location: /plugins/farm/garden/");
     exit;
 }
 
 if (isset($_GET['watokmy'])) {
     add_farm_event('你成功地浇水了。收获前的时间缩短了。 [b]半小时[/b].经验 +1, 健康 -1.');
-    header("Location: /farm/garden/");
+    header("Location: /plugins/farm/garden/");
     exit;
 }
 
@@ -83,7 +83,7 @@ if (isset($_GET['nextokmy'])) {
     add_farm_event('植物 ' . $semen1['name'] . ' 转至下个赛季 (' . intval($_SESSION['grsezon']) . '). 经验 +' . intval($_SESSION['opyt']) . ', 健康 -2.');
     unset($_SESSION['plid']);
     unset($_SESSION['opyt']);
-    header("Location: /farm/garden/");
+    header("Location: /plugins/farm/garden/");
     exit;
 }
 
@@ -113,11 +113,11 @@ if (isset($_POST['sadit']) && $post && $user['id'] == $post['id_user'] && $post[
         }
         dbquery("UPDATE `farm_user` SET `posadka` = `posadka`+'1' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
 
-        header("Location: /farm/gr.php?gr=" . $int . "&ok");
+        header("Location: /plugins/farm/gr.php?gr=" . $int . "&ok");
     }
 
     if ($fuser['xp'] < 0) {
-        header("Location: /farm/gr.php?id=" . $int . "&unxp");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
     }
 }
 
@@ -126,7 +126,7 @@ if (isset($_GET['posadka']) && $post && $user['id'] == $post['id_user'] && $post
     if ($fuser['xp'] > 0) {
         $check = dbresult(dbquery("SELECT COUNT(*) FROM `farm_semen` WHERE `id` = '" . intval($_GET['plantid']) . "' AND `id_user` = '$user[id]'"), 0);
         if ($check == 0) {
-            header("Location: /farm/gr.php?id=" . $int . "");
+            header("Location: /plugins/farm/gr.php?id=" . $int . "");
         }
         $res = dbarray(dbquery("select * from `farm_semen` WHERE `id` = '" . intval($_GET['plantid']) . "' "));
         $semen = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '$res[semen]' "));
@@ -152,11 +152,11 @@ if (isset($_GET['posadka']) && $post && $user['id'] == $post['id_user'] && $post
 
         dbquery("UPDATE `farm_user` SET `posadka` = `posadka`+'1' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
 
-        header("Location: /farm/my.php?" . $passgen . "&saditok");
+        header("Location: /plugins/farm/my.php?" . $passgen . "&saditok");
     }
 
     if ($fuser['xp'] < 0) {
-        header("Location: /farm/gr.php?id=" . $int . "&unxp");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
     }
 }
 
@@ -166,7 +166,7 @@ if (isset($_GET['get']) && $user['id'] == $post['id_user'] && $post['semen'] != 
         $semen = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($post['semen']) . "' "));
 
         if ($post['sezon'] < $semen['let']) {
-            header("Location: /farm/gr/$int");
+            header("Location: /plugins/farm/gr/$int");
             exit();
         }
 
@@ -257,10 +257,10 @@ if (isset($_GET['get']) && $user['id'] == $post['id_user'] && $post['semen'] != 
 
         dbquery("UPDATE `farm_gr` SET `sezon` = '1' WHERE `id` = '" . $int . "' LIMIT 1");
 
-        header("Location: /farm/gr.php?id=" . $int . "&sob_ok");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&sob_ok");
     }
     if ($fuser['xp'] < 0) {
-        header("Location: /farm/gr.php?id=" . $int . "&unxp");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
     }
 }
 
@@ -299,10 +299,10 @@ if (isset($_GET['getg']) && $user['id'] == $post['id_user'] && $post['semen'] !=
         dbquery("UPDATE `farm_gr` SET `kol` = '0' WHERE `id` = $int LIMIT 1");
         dbquery("UPDATE `farm_gr` SET `time_water` = NULL WHERE `id` = $int LIMIT 1");
         dbquery("UPDATE `farm_gr` SET `vskop` = '0' WHERE `id` = $int LIMIT 1");
-        header("Location: /farm/gr.php?id=" . $int . "&sob_okmy");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&sob_okmy");
     }
     if ($fuser['xp'] < 0) {
-        header("Location: /farm/gr.php?id=" . $int . "&unxpmy");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&unxpmy");
     }
 }
 
@@ -314,7 +314,7 @@ if (isset($_GET['next']) && $user['id'] == $post['id_user'] && $post['semen'] !=
         $semen = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($post['semen']) . "' "));
 
         if ($semen['let'] == 1) {
-            header("Location: /farm/garden/");
+            header("Location: /plugins/farm/garden/");
             exit;
         }
 
@@ -323,7 +323,7 @@ if (isset($_GET['next']) && $user['id'] == $post['id_user'] && $post['semen'] !=
         $sezonnew = $post['sezon'] + 1;
 
         if ($sezonnew > $semenlet) {
-            header("Location: /farm/gr.php?id=" . $int . "&get");
+            header("Location: /plugins/farm/gr.php?id=" . $int . "&get");
         }
 
 
@@ -334,7 +334,7 @@ if (isset($_GET['next']) && $user['id'] == $post['id_user'] && $post['semen'] !=
         $_SESSION['grsezon'] = $sezonnew;
 
         if ($sezonnew > $semenlet) {
-            header("Location: /farm/gr.php?id=" . $int . "&get");
+            header("Location: /plugins/farm/gr.php?id=" . $int . "&get");
         }
 
         if (isset($_SESSION['plid'])) {
@@ -412,9 +412,9 @@ if (isset($_GET['next']) && $user['id'] == $post['id_user'] && $post['semen'] !=
 
         dbquery("INSERT INTO `farm_ambar` (`kol` , `semen`, `id_user`) VALUES  ('" . $wth . "', '" . $post['semen'] . "', '" . $user['id'] . "') ");
 
-        header("Location: /farm/gr.php?id=" . $int . "&nextok");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&nextok");
     } else {
-        header("Location: /farm/gr.php?id=" . $int . "&unxp");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
     }
 }
 
@@ -428,7 +428,7 @@ if (isset($_GET['nextmy']) && $user['id'] == $post['id_user'] && $post['semen'] 
         $sezonnew = $post['sezon'] + 1;
 
         if ($sezonnew > $semenlet) {
-            header("Location: /farm/gr.php?id=" . $int . "&get");
+            header("Location: /plugins/farm/gr.php?id=" . $int . "&get");
         }
 
 
@@ -439,7 +439,7 @@ if (isset($_GET['nextmy']) && $user['id'] == $post['id_user'] && $post['semen'] 
         $_SESSION['grsezon'] = $sezonnew;
 
         if ($sezonnew > $semenlet) {
-            header("Location: /farm/gr.php?id=" . $int . "&get");
+            header("Location: /plugins/farm/gr.php?id=" . $int . "&get");
         }
 
         if (isset($_SESSION['plid'])) {
@@ -466,9 +466,9 @@ if (isset($_GET['nextmy']) && $user['id'] == $post['id_user'] && $post['semen'] 
         dbquery("UPDATE `farm_gr` SET `udobr` = '0' WHERE `id` = $int LIMIT 1");
         dbquery("UPDATE `farm_gr` SET `sezon` = '$sezonnew' WHERE `id` = $int LIMIT 1");
         dbquery("UPDATE `farm_gr` SET `kol` = '0' WHERE `id` = $int LIMIT 1");
-        header("Location: /farm/gr.php?id=" . $int . "&nextokmy");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&nextokmy");
     } else {
-        header("Location: /farm/gr.php?unxpmy");
+        header("Location: /plugins/farm/gr.php?unxpmy");
     }
 }
 
@@ -505,10 +505,10 @@ dbquery("UPDATE `farm_gr` SET `time_water` = '".$newtmi."' WHERE `id` = '".$int.
         }
         dbquery("UPDATE `farm_user` SET `udobrenie` = `udobrenie`+'1' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
 
-        header("Location: /farm/gr.php?id=" . $int . "&udobr_ok");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&udobr_ok");
     }
     if ($fuser['xp'] < 0) {
-        header("Location: /farm/gr.php?id=" . $int . "&unxp");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
     }
 }
 if (isset($_GET['woter']) && $post['time_water'] < time()) {
@@ -521,10 +521,10 @@ if (isset($_GET['woter']) && $post['time_water'] < time()) {
         dbquery("UPDATE `farm_user` SET `xp` = " . ($fuser['xp'] - 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
         dbquery("UPDATE `farm_user` SET `poliv` = `poliv`+'1' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
 
-        header("Location: /farm/gr.php?id=" . $int . "&watok");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&watok");
     }
     if ($fuser['xp'] < 0) {
-        header("Location: /farm/gr.php?id=" . $int . "&unxp");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
     }
 }
 
@@ -540,10 +540,10 @@ if (isset($_GET['water']) && $post['time_water'] < time()) {
         dbquery("UPDATE `farm_user` SET `xp` = " . ($fuser['xp'] - 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
         dbquery("UPDATE `farm_user` SET `poliv` = `poliv`+'1' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
 
-        header("Location: /farm/gr.php?id=" . $int . "&watokmy");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&watokmy");
     }
     if ($fuser['xp'] < 0) {
-        header("Location: /farm/gr.php?id=" . $int . "&unxpmy");
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&unxpmy");
     }
 }
 
@@ -565,8 +565,8 @@ if ($post) {
 }
 
 echo "<div class='rowdown'>";
-echo "<img src='/farm/img/garden.png' alt='' class='rpg' /> <a href='/farm/garden/'>返回</a><br/>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/farm/'>我的农场</a>";
+echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>返回</a><br/>";
+echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/'>我的农场</a>";
 echo "</div>";
 
-include_once '../sys/inc/tfoot.php';
+include_once '../../sys/inc/tfoot.php';

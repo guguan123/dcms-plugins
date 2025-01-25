@@ -1,19 +1,19 @@
 <?php
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/user.php';
+include_once '../../sys/inc/start.php';
+include_once '../../sys/inc/compress.php';
+include_once '../../sys/inc/sess.php';
+include_once '../../sys/inc/home.php';
+include_once '../../sys/inc/settings.php';
+include_once '../../sys/inc/db_connect.php';
+include_once '../../sys/inc/ipua.php';
+include_once '../../sys/inc/fnc.php';
+include_once '../../sys/inc/user.php';
 only_reg();
 if (isset($_GET['id'])) {
     $int = intval($_GET['id']);
 }
 $set['title'] = '开心农场 :: 仓库';
-include_once '../sys/inc/thead.php';
+include_once '../../sys/inc/thead.php';
 title();
 err();
 
@@ -26,7 +26,7 @@ if (isset($_GET['sell_all'])) {
     add_farm_event('所有的种子都卖出去了 ' . intval($_SESSION['sum']) . ' 黄金');
     unset($_SESSION['sum']);
 
-    header("Location: /farm/sklad");
+    header("Location: /plugins/farm/sklad");
     exit;
 }
 
@@ -57,13 +57,13 @@ if (isset($_GET['id'])) {
         $dohod = intval($_SESSION['dohod']);
         dbquery("UPDATE `farm_user` SET `gold` = '" . ($fuser['gold'] + $dohod) . "' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
         dbquery("DELETE FROM `farm_semen` WHERE `id` = " . intval($_GET['id']) . " ");
-        header('Location: /farm/sklad?sell_ok');
+        header('Location: /plugins/farm/sklad?sell_ok');
     }
 
     farm_event();
 
     echo "<div class='rowup'><center>";
-    echo "<img src='/farm/bush/" . $post['semen'] . ".png' alt=''></center><br/> <b>种子 " . $semen['name'] . "</b><br/>";
+    echo "<img src='/plugins/farm/bush/" . $post['semen'] . ".png' alt=''></center><br/> <b>种子 " . $semen['name'] . "</b><br/>";
     echo "&raquo; 数量: <b>" . $post['kol'] . "</b> <br/>";
     echo "&raquo; 单价: <b>" . $post['cena'] . "</b> <br/>";
 
@@ -73,7 +73,7 @@ if (isset($_GET['id'])) {
     echo "<input type='submit' name='save' value='出售' />\n";
     echo "</form>\n";
     echo "<div class='rowup'>";
-    echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/farm/sklad'>仓库</a><br/>";
+    echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/sklad'>仓库</a><br/>";
     echo "</div>";
 } else {
 
@@ -100,7 +100,7 @@ if (isset($_GET['id'])) {
         }
 
         echo "<div class='rowdown'>";
-        echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/farm/sklad?sell_all'>把一切都卖了 " . intval($_SESSION['sum']) . " 黄金</a></div>";
+        echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/sklad?sell_all'>把一切都卖了 " . intval($_SESSION['sum']) . " 黄金</a></div>";
     }
 
 
@@ -117,7 +117,7 @@ if (isset($_GET['id'])) {
 
         $semen = dbarray(dbquery("select * from `farm_plant` WHERE  `id` = '" . $post['semen'] . "'  LIMIT 1"));
 
-        echo "<img src='/farm/bush/" . $post['semen'] . ".png' height='20' width='20'><b></b> <a href='?id=$post[id]'>" . $semen['name'] . "</a> [" . $post['kol'] . "] ";
+        echo "<img src='/plugins/farm/bush/" . $post['semen'] . ".png' height='20' width='20'><b></b> <a href='?id=$post[id]'>" . $semen['name'] . "</a> [" . $post['kol'] . "] ";
         echo "(<a href='?id=" . $post['id'] . "&amp;sell'><span class='off'>出售</span></a>)</div>";
     }
 
@@ -125,7 +125,7 @@ if (isset($_GET['id'])) {
     if ($k_page > 1) str('?', $k_page, $page); // Вывод страниц
 }
 echo "<div class='rowdown'>";
-echo "<img src='/farm/img/garden.png' /> <a href='/farm/garden/'>返回</a><br/>";
+echo "<img src='/plugins/farm/img/garden.png' /> <a href='/plugins/farm/garden/'>返回</a><br/>";
 echo "</div>";
 
-include_once '../sys/inc/tfoot.php';
+include_once '../../sys/inc/tfoot.php';

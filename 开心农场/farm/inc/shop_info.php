@@ -1,11 +1,11 @@
 <?php
-echo "<div class='rowup'><img src='/farm/img/garden.png' alt='' /> <a href='/farm/garden/'>你的菜园</a> / <b>植物信息</b></div>";
+echo "<div class='rowup'><img src='/plugins/farm/img/garden.png' alt='' /> <a href='/plugins/farm/garden/'>你的菜园</a> / <b>植物信息</b></div>";
 $int = intval($_GET['id']);
 $notis = dbresult(dbquery("SELECT COUNT(*) FROM `farm_plant` WHERE  `id` = '$int'"), 0);
 if ($notis == 0) {
     echo "<div class='err'>没有这样的植物</div>";
     echo "<img src='/img/back.png' alt='' /> <a href='shop.php'>返回</a>";
-    include_once '../sys/inc/tfoot.php';
+    include_once '../../sys/inc/tfoot.php';
     exit;
 }
 $post = dbarray(dbquery("select * from `farm_plant` WHERE  `id` = '$int'  LIMIT 1"));
@@ -32,7 +32,7 @@ else
 $time_1 = $day . $hourfield . "时" . $minutefield;
 
 echo "<div class='rowdown'>";
-echo "<center><img src='/farm/shopimg/$post[id].jpeg' alt='$post[name]' /></center><br />";
+echo "<center><img src='/plugins/farm/shopimg/$post[id].jpeg' alt='$post[name]' /></center><br />";
 
 echo "&raquo; <b>$post[name]</b><br />";
 if ($post['opis'] != NULL) {
@@ -62,7 +62,7 @@ if ($post['let'] > 2) {
 
 
 if ($post['opis'] == NULL && $user['level'] == 4) {
-    echo "<form action='/farm/shop.php?id=" . $int . "&amp;$passgen' method='post'>";
+    echo "<form action='/plugins/farm/shop.php?id=" . $int . "&amp;$passgen' method='post'>";
     echo "<input type='text' maxlenght='1024' size='20' name='opis' /><br />";
     echo "<input type='submit' value='OK' />";
     echo "</form>";
@@ -72,11 +72,11 @@ echo "</div>";
 $iplus = $post['id'] + 1;
 $iminus = $post['id'] - 1;
 echo "<div class='rowup'>";
-echo "<a href='/farm/shop/plant/$iminus'>&laquo; 上一个</a> | <a href='/farm/shop/plant/$iplus'>下一个&raquo;</a>";
+echo "<a href='/plugins/farm/shop/plant/$iminus'>&laquo; 上一个</a> | <a href='/plugins/farm/shop/plant/$iplus'>下一个&raquo;</a>";
 echo "</div>";
 
 if ($level >= $post['level']) {
-    echo "<div class='rowdown'><form method='post' action='/farm/shop.php?id=" . $int . "&amp;$passgen'>\n";
+    echo "<div class='rowdown'><form method='post' action='/plugins/farm/shop.php?id=" . $int . "&amp;$passgen'>\n";
     echo "购买（数量）:<br />\n";
 
     echo "<input type='text' name='kupit' size='4'/> <input type='submit' name='save' value='购买' />";
@@ -90,10 +90,10 @@ if (isset($kupit) && $fuser['gold'] >= $kup && $kupit > 0) {
     dbquery("INSERT INTO `farm_semen` (`kol` , `semen`, `id_user`) VALUES  ('" . $kupit . "', '" . $int . "', '" . $user['id'] . "') ");
     dbquery("UPDATE `farm_user` SET `gold` = `gold`- $kup WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
     $_SESSION['plidb'] = $post['id'];
-    header('Location: /farm/shop/?buy_ok');
+    header('Location: /plugins/farm/shop/?buy_ok');
 }else if (isset($kupit) && strlen2($kupit) == 0 || isset($kupit) && $kupit < 1) echo "<div class='err'>未填写的字段</div>";
 
 else if (isset($kupit) && $fuser['gold'] < $kup) {
     $_SESSION['plidb'] = $post['id'];
-    header('Location: /farm/shop/?buy_no');
+    header('Location: /plugins/farm/shop/?buy_no');
 }

@@ -1,20 +1,20 @@
 <?php
-include_once '../../sys/inc/start.php';
-include_once '../../sys/inc/compress.php';
-include_once '../../sys/inc/sess.php';
-include_once '../../sys/inc/home.php';
-include_once '../../sys/inc/settings.php';
-include_once '../../sys/inc/db_connect.php';
-include_once '../../sys/inc/ipua.php';
-include_once '../../sys/inc/fnc.php';
-include_once '../../sys/inc/user.php';
+include_once '../../../sys/inc/start.php';
+include_once '../../../sys/inc/compress.php';
+include_once '../../../sys/inc/sess.php';
+include_once '../../../sys/inc/home.php';
+include_once '../../../sys/inc/settings.php';
+include_once '../../../sys/inc/db_connect.php';
+include_once '../../../sys/inc/ipua.php';
+include_once '../../../sys/inc/fnc.php';
+include_once '../../../sys/inc/user.php';
 only_reg();
 $set['title'] = '播种机 :: 种子选择';
-include_once '../../sys/inc/thead.php';
+include_once '../../../sys/inc/thead.php';
 title();
 err();
 
-include_once '../inc/str.php';
+include_once '../../inc/str.php';
 farm_event();
 
 if (isset($_GET['select'])) {
@@ -25,7 +25,7 @@ if (isset($_GET['select'])) {
 
     if ($k_post == 0) {
         add_farm_event('你仓库里没有种子你被转到种子店了');
-        header("Location: /farm/shop/");
+        header("Location: /plugins/farm/shop/");
         exit();
     }
 
@@ -41,13 +41,13 @@ if (isset($_GET['select'])) {
         }
 
         $semen = dbarray(dbquery("select * from `farm_plant` WHERE  `id` = '" . $post['semen'] . "'  LIMIT 1"));
-        echo "<img src='/farm/plants/" . $post['semen'] . ".png' height='12' width='12'> <a href='/farm/combine/seeder.php?id=" . $post['id'] . "&start'>" . $semen['name'] . "</a> (" . $post['kol'] . " шт.)";
+        echo "<img src='/plugins/farm/plants/" . $post['semen'] . ".png' height='12' width='12'> <a href='/plugins/farm/combine/seeder.php?id=" . $post['id'] . "&start'>" . $semen['name'] . "</a> (" . $post['kol'] . " шт.)";
         echo "</div>";
     }
     if ($k_page > 1) str('?', $k_page, $page);
 
     echo "<div class='rowdown'>";
-    echo "<img src='/farm/img/garden.png' alt='' class='rpg' /> <a href='/farm/garden/'>取消</a>";
+    echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>取消</a>";
     echo "</div>";
     include_once H . 'sys/inc/tfoot.php';
     exit();
@@ -62,7 +62,7 @@ if (isset($_GET['start']) && isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     if ($chk == 0) {
         add_farm_event('这些种子不是你的，或者它们不存在');
-        header("Location: /farm/garden/");
+        header("Location: /plugins/farm/garden/");
         exit();
     }
 
@@ -74,7 +74,7 @@ if (isset($_GET['start']) && isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     if ($post['kol'] < $irnum) {
         add_farm_event('没有足够的种子');
-        header("Location: /farm/garden/");
+        header("Location: /plugins/farm/garden/");
         exit();
     }
 
@@ -121,6 +121,6 @@ if (isset($_GET['start']) && isset($_GET['id']) && is_numeric($_GET['id'])) {
     }
 }
 if (!isset($_GET['select'])) {
-    header("Location: /farm/garden/");
+    header("Location: /plugins/farm/garden/");
     exit();
 }

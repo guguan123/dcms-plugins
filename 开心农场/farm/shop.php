@@ -1,16 +1,16 @@
 <?php
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/user.php';
+include_once '../../sys/inc/start.php';
+include_once '../../sys/inc/compress.php';
+include_once '../../sys/inc/sess.php';
+include_once '../../sys/inc/home.php';
+include_once '../../sys/inc/settings.php';
+include_once '../../sys/inc/db_connect.php';
+include_once '../../sys/inc/ipua.php';
+include_once '../../sys/inc/fnc.php';
+include_once '../../sys/inc/user.php';
 only_reg();
 $set['title'] = '开心农场 :: 种子店';
-include_once '../sys/inc/thead.php';
+include_once '../../sys/inc/thead.php';
 title();
 err();
 
@@ -36,9 +36,9 @@ if (isset($_GET['id'])) {
 }
 
 echo "<div class='rowdown'>";
-if (isset($_GET['id'])) echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/farm/shop/'>种子店</a><br/>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/farm/garden/'>我的农场</a><br/>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/farm/'>返回</a>";
+if (isset($_GET['id'])) echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/shop/'>种子店</a><br/>";
+echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的农场</a><br/>";
+echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/'>返回</a>";
 echo "</div>";
 
-include_once '../sys/inc/tfoot.php';
+include_once '../../sys/inc/tfoot.php';

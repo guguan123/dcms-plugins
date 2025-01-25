@@ -1,5 +1,5 @@
 <?php
-echo "<div class='rowup'><img src='/farm/img/garden.png' alt='' /> <a href='/farm/garden/'>你的菜园</a> / <b>购买种子</b></div>";
+echo "<div class='rowup'><img src='/plugins/farm/img/garden.png' alt='' /> <a href='/plugins/farm/garden/'>你的菜园</a> / <b>购买种子</b></div>";
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `farm_plant`"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
@@ -47,7 +47,7 @@ while ($post = dbarray($res)) {
         $lvl = "<font color='red'>需要 $post[level] 等级</font>";
     }
     echo "<table class='post'>";
-    echo "<tr><td rowspan='2' style='width:30px'><img src='/farm/plants/$post[id].png' height='30' width='30'></td><td> <a href='/farm/shop/plant/$post[id]'>" . $post['name'] . "</a> (" . $lvl . ")</td></tr>";
+    echo "<tr><td rowspan='2' style='width:30px'><img src='/plugins/farm/plants/$post[id].png' height='30' width='30'></td><td> <a href='/plugins/farm/shop/plant/$post[id]'>" . $post['name'] . "</a> (" . $lvl . ")</td></tr>";
     echo "<tr><td><small>增长 $time_arr, 经验 $post[oput], 收获 $post[rand1]</small></td></tr></table></div>";
     unset($day);
 }

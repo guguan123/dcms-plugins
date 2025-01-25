@@ -1,16 +1,16 @@
 <?php
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/user.php';
+include_once '../../sys/inc/start.php';
+include_once '../../sys/inc/compress.php';
+include_once '../../sys/inc/sess.php';
+include_once '../../sys/inc/home.php';
+include_once '../../sys/inc/settings.php';
+include_once '../../sys/inc/db_connect.php';
+include_once '../../sys/inc/ipua.php';
+include_once '../../sys/inc/fnc.php';
+include_once '../../sys/inc/user.php';
 only_reg();
 $set['title'] = '开心农场 :: 食堂';
-include_once '../sys/inc/thead.php';
+include_once '../../sys/inc/thead.php';
 title();
 aut();
 
@@ -25,7 +25,7 @@ if (isset($_GET['eat_all'])) {
     add_farm_event('你都吃过了。添加 ' . intval($_SESSION['sum']) . ' 健康');
     unset($_SESSION['sum']);
 
-    header("Location: /farm/dining");
+    header("Location: /plugins/farm/dining");
     exit;
 }
 
@@ -41,7 +41,7 @@ include 'inc/str.php';
 if (isset($_GET['id'])) {
     $check = dbresult(dbquery("SELECT COUNT(*) FROM `farm_ambar` WHERE `id` = '" . $int . "'"), 0);
     if ($check == 0) {
-        header("Location: /farm/dining");
+        header("Location: /plugins/farm/dining");
         exit();
     }
     $post = dbarray(dbquery("SELECT * FROM `farm_ambar` WHERE `id`= '" . intval($_GET['id']) . "' LIMIT 1"));
@@ -60,12 +60,12 @@ if (isset($_GET['id'])) {
         $xp = intval($_SESSION['xp']);
         dbquery("UPDATE `farm_user` SET `xp` = '" . ($fuser['xp'] + $xp) . "' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
         dbquery("DELETE FROM `farm_ambar` WHERE `id` = " . intval($_GET['id']) . " ");
-        header('Location: /farm/dining?eat_ok');
+        header('Location: /plugins/farm/dining?eat_ok');
     }
 
     farm_event();
 
-    echo "<div class='rowdown'><center><img src='/farm/bush/" . $post['semen'] . ".png' alt=''></center><br/> <b>" . $semen['name'] . "</b><br/>";
+    echo "<div class='rowdown'><center><img src='/plugins/farm/bush/" . $post['semen'] . ".png' alt=''></center><br/> <b>" . $semen['name'] . "</b><br/>";
     echo "&raquo; 收获的数量: <b>" . $post['kol'] . "</b> <br/>";
     echo "&raquo; 每个单位的健康状况: <b>" . $semen['xp'] . "</b> <br/>";
 
@@ -76,7 +76,7 @@ if (isset($_GET['id'])) {
     echo "</form>\n";
 
     echo "<div class='rowup'>";
-    echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/farm/dining'>饭厅</a>";
+    echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/dining'>饭厅</a>";
     echo "</div>";
 } else {
 
@@ -103,7 +103,7 @@ if (isset($_GET['id'])) {
         }
 
         echo "<div class='rowdown'>";
-        echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/farm/dining?eat_all'>把它全部吃完。添加 " . intval($_SESSION['sum']) . " 健康</a></div>";
+        echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/dining?eat_all'>把它全部吃完。添加 " . intval($_SESSION['sum']) . " 健康</a></div>";
     }
 
 
@@ -120,7 +120,7 @@ if (isset($_GET['id'])) {
 
         $semen = dbarray(dbquery("SELECT * FROM `farm_plant` WHERE  `id` = '" . $post['semen'] . "'  LIMIT 1"));
 
-        echo "<img src='/farm/bush/" . $post['semen'] . ".png' height='20' width='20'><b></b> <a href='?id=$post[id]'>" . $semen['name'] . "</a> [" . $post['kol'] . "] ";
+        echo "<img src='/plugins/farm/bush/" . $post['semen'] . ".png' height='20' width='20'><b></b> <a href='?id=$post[id]'>" . $semen['name'] . "</a> [" . $post['kol'] . "] ";
         echo "(<a href='?id=" . $post['id'] . "&amp;eat'>查阅</a>)</div>";
     }
 
@@ -128,7 +128,7 @@ if (isset($_GET['id'])) {
     if ($k_page > 1) str('?', $k_page, $page); // Вывод страниц
 }
 echo "<div class='rowdown'>";
-echo "<img src='/farm/img/garden.png' /> <a href='/farm/garden/'>返回</a><br/>";
+echo "<img src='/plugins/farm/img/garden.png' /> <a href='/plugins/farm/garden/'>返回</a><br/>";
 echo "</div>";
 
-include_once '../sys/inc/tfoot.php';
+include_once '../../sys/inc/tfoot.php';

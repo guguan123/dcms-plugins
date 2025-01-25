@@ -1,16 +1,16 @@
 <?php
-include_once '../../sys/inc/start.php';
-include_once '../../sys/inc/compress.php';
-include_once '../../sys/inc/sess.php';
-include_once '../../sys/inc/home.php';
-include_once '../../sys/inc/settings.php';
-include_once '../../sys/inc/db_connect.php';
-include_once '../../sys/inc/ipua.php';
-include_once '../../sys/inc/fnc.php';
-include_once '../../sys/inc/user.php';
+include_once '../../../sys/inc/start.php';
+include_once '../../../sys/inc/compress.php';
+include_once '../../../sys/inc/sess.php';
+include_once '../../../sys/inc/home.php';
+include_once '../../../sys/inc/settings.php';
+include_once '../../../sys/inc/db_connect.php';
+include_once '../../../sys/inc/ipua.php';
+include_once '../../../sys/inc/fnc.php';
+include_once '../../../sys/inc/user.php';
 only_reg();
 $set['title']='开心农场 :: 技能 :: 育种';
-include_once '../../sys/inc/thead.php';
+include_once '../../../sys/inc/thead.php';
 title();
 aut();
 
@@ -79,12 +79,12 @@ add_farm_event('你没有足够的'.$cntt.' 学习 [b] 选择 [/b] 技能的钻�
 }
 }
 
-include_once H.'/farm/inc/str.php';
+include_once H.'/plugins/farm/inc/str.php';
 farm_event();
 
 echo "<div class='rowup'>技能 :: 饲养</div>";
 echo "<div class='rowdown'>";
-echo "<table class='post'><tr><td><img src='/farm/img/plus.gif' alt='' /></td><td>";
+echo "<table class='post'><tr><td><img src='/plugins/farm/img/plus.gif' alt='' /></td><td>";
 echo "增加收获时的产量</td></tr></table>";
 
 if ($fuser['selection']==0)
@@ -127,16 +127,16 @@ echo "<img src='/img/add.png' alt='' class='rpg' /> 你对该技能的熟练程�
 }
 
 echo "<br />";
-echo "&raquo; 第 1 级--收益率 +5% (<img src='/farm/img/gems.png' alt='' class='rpg' />8)<br />&raquo; 2 级--收益率 +10% (<img src='/farm/img/gems.png' alt='' class='rpg' />12)<br />&raquo; 3 级--收益率 +15% (<img src='/farm/img/gems.png' alt='' class='rpg' />15)<br />&raquo; 4 级 - 产量 +20% (<img src='/farm/img/gems.png' alt='' class='rpg' />20)<br />&raquo; 第 5 级 - 产量增+ 25% (<img src='/farm/img/gems.png' alt='' class='rpg' />30)<br />";
+echo "&raquo; 第 1 级--收益率 +5% (<img src='/plugins/farm/img/gems.png' alt='' class='rpg' />8)<br />&raquo; 2 级--收益率 +10% (<img src='/plugins/farm/img/gems.png' alt='' class='rpg' />12)<br />&raquo; 3 级--收益率 +15% (<img src='/plugins/farm/img/gems.png' alt='' class='rpg' />15)<br />&raquo; 4 级 - 产量 +20% (<img src='/plugins/farm/img/gems.png' alt='' class='rpg' />20)<br />&raquo; 第 5 级 - 产量增+ 25% (<img src='/plugins/farm/img/gems.png' alt='' class='rpg' />30)<br />";
 
 if ($fuser['selection']==0)
 {
-echo "<img src='/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?selection_up'>升级 <img src='/farm/img/gems.png' alt='' class='rpg' />8</a></span><br />";
+echo "<img src='/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?selection_up'>升级 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />8</a></span><br />";
 }
 
 if ($fuser['selection']>0 && $fuser['selection']<5)
 {
-echo "<img src='/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?selection_up'>提高技能等级，为 <img src='/farm/img/gems.png' alt='' class='rpg' />".$cost."</a></span><br />";
+echo "<img src='/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?selection_up'>提高技能等级，为 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />".$cost."</a></span><br />";
 }
 
 if ($fuser['selection']==5)
@@ -147,9 +147,9 @@ echo "<img src='/img/accept.png' alt='' class='rpg' /> <span class='underline'>�
 echo '</div>';
 
 echo "<div class='rowdown'>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/farm/abilities/'>对技能列表</a><br />";
-echo "<img src='/farm/img/garden.png' alt='' class='rpg' /> <a href='/farm/garden/'>我的土地</a>";
+echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/abilities/'>对技能列表</a><br />";
+echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的土地</a>";
 echo "</div>";
 
-include_once '../../sys/inc/tfoot.php';
+include_once '../../../sys/inc/tfoot.php';
 ?>

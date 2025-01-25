@@ -1,16 +1,16 @@
 <?php
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/user.php';
+include_once '../../sys/inc/start.php';
+include_once '../../sys/inc/compress.php';
+include_once '../../sys/inc/sess.php';
+include_once '../../sys/inc/home.php';
+include_once '../../sys/inc/settings.php';
+include_once '../../sys/inc/db_connect.php';
+include_once '../../sys/inc/ipua.php';
+include_once '../../sys/inc/fnc.php';
+include_once '../../sys/inc/user.php';
 only_reg();
 $set['title'] = '开心农场 :: 我的小土地';
-include_once '../sys/inc/thead.php';
+include_once '../../sys/inc/thead.php';
 title();
 err();
 aut();
@@ -90,9 +90,9 @@ if (isset($_GET['gr_add']) && $fuser['gold'] >= 5000) {
     if (($fuser['gold'] >= $cost) and ($level >= $lvl)) {
         dbquery("UPDATE `farm_user` SET `farm_gold` = " . ($fuser['gold'] - $cost) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
         dbquery("INSERT INTO `farm_gr` (`semen`, `id_user`) VALUES  ( '0', '" . $user['id'] . "') ");
-        header('Location: /farm/garden/?add_ok');
+        header('Location: /plugins/farm/garden/?add_ok');
     } else {
-        header('Location: /farm/garden/?add_no');
+        header('Location: /plugins/farm/garden/?add_no');
     }
 }
 
@@ -148,14 +148,14 @@ if (isset($_GET['add'])) {
 
 
     if ($level >= $lvl) {
-        echo "<div class='rowup'><img src='/farm/img/garden.png' alt='' /> <a href='/farm/garden/'>你的菜园</a> / <b>购买土地</b></div>";
+        echo "<div class='rowup'><img src='/plugins/farm/img/garden.png' alt='' /> <a href='/plugins/farm/garden/'>你的菜园</a> / <b>购买土地</b></div>";
         echo "<div class='rowdown'>一个土地的成本为： " . $cost . " <br />";
         echo "需要等级: " . $lvl . "</div>";
-        echo "<form method='post' action='/farm/garden/?gr_add'>\n";
+        echo "<form method='post' action='/plugins/farm/garden/?gr_add'>\n";
         echo "<input type='submit' name='save' value='购买' />\n";
         echo "</form>\n";
     } else {
-        echo "<div class='rowup'><img src='/farm/img/garden.png' alt='' /> <a href='/farm/garden/'>你的菜园</a> / <b>购买土地</b></div>";
+        echo "<div class='rowup'><img src='/plugins/farm/img/garden.png' alt='' /> <a href='/plugins/farm/garden/'>你的菜园</a> / <b>购买土地</b></div>";
         echo "<b>你不能购买土地。</b><br />";
         echo "<b>农场的等级不够？ </b>添加另一个块土地，你需要更多的<b>经验</b>。<br />";
         echo "<b>没有足够的钱？</b>在论坛上交流，在日记中写笔记和评论别人的东西，在报纸上写文章，在聊天中交流和猜测问题。<br />";
@@ -219,22 +219,22 @@ if (isset($_GET['add'])) {
         if ($post['semen'] == 0) {
             $plcnt = dbresult(dbquery("SELECT COUNT(*) FROM `farm_semen` WHERE `id_user` = '" . $user['id'] . "'"), 0);
             if ($plcnt == 0) {
-                $act = "仓库里没有种子 <a href='/farm/shop.php'>购买</a>";
+                $act = "仓库里没有种子 <a href='/plugins/farm/shop.php'>购买</a>";
             }
             if ($plcnt != 0) {
                 $plant = dbarray(dbquery("SELECT * FROM `farm_semen` WHERE `id_user` = '" . $user['id'] . "' ORDER BY id DESC LIMIT 1"));
                 $plnew = dbarray(dbquery("SELECT * FROM `farm_plant` WHERE `id` = '" . $plant['semen'] . "' LIMIT 1"));
-                $act = "<img src='/farm/img/plant.png' alt='' class='rpg' /> 播种 <a href='/farm/gr.php?id=" . $post['id'] . "&plantid=" . $plant['id'] . "&posadka'>" . $plnew['name'] . "</a> 或 <a href='/farm/gr.php?id=" . $post['id'] . "'>其它植物</a>";
+                $act = "<img src='/plugins/farm/img/plant.png' alt='' class='rpg' /> 播种 <a href='/plugins/farm/gr.php?id=" . $post['id'] . "&plantid=" . $plant['id'] . "&posadka'>" . $plnew['name'] . "</a> 或 <a href='/plugins/farm/gr.php?id=" . $post['id'] . "'>其它植物</a>";
             }
         }
 
         if ($post['semen'] != 0) {
             if ($post['time_water'] < time()) {
-                $act = "<img src='/farm/img/water.png' alt='' class='rpg' /> <a href='/farm/gr.php?id=$post[id]&water'>浇水</a>";
+                $act = "<img src='/plugins/farm/img/water.png' alt='' class='rpg' /> <a href='/plugins/farm/gr.php?id=$post[id]&water'>浇水</a>";
             }
 
             if ($post['time'] < time()) {
-                $act = "<img src='/farm/img/harvest.png' alt='' class='rpg' /> <a href='/farm/gr/" . $post['id'] . "'>收集</a>";
+                $act = "<img src='/plugins/farm/img/harvest.png' alt='' class='rpg' /> <a href='/plugins/farm/gr/" . $post['id'] . "'>收集</a>";
             }
         }
 
@@ -255,19 +255,19 @@ if (isset($_GET['add'])) {
             if ($dayfield > 0) $day = $dayfield . '天';
             else $day = '';
             $time_wost = $day . $hourfield . "时" . $minutefield . "分";
-            $act = "<img src='/farm/img/time.png' alt='' class='rpg' /> 浇水前 " . $time_wost . "";
+            $act = "<img src='/plugins/farm/img/time.png' alt='' class='rpg' /> 浇水前 " . $time_wost . "";
         }
 
         if ($post['semen'] != 0 && $post['udobr'] == 0 && $post['time_water'] > time()) {
-            $act = "<img src='/farm/img/fertilize.png' alt='' class='rpg' /> <a href='/farm/gr/" . $post['id'] . "'>施肥</a>";
+            $act = "<img src='/plugins/farm/img/fertilize.png' alt='' class='rpg' /> <a href='/plugins/farm/gr/" . $post['id'] . "'>施肥</a>";
         }
 
         if ($post['semen'] != 0 && $post['udobr'] == 1 && $post['time_water'] > time() && $post['time'] > time() && $post['time'] < $post['time_water']) {
-            $act = "<img src='/farm/img/time.png' alt='' class='rpg' /> 收获剩余： " . $time_1 . "";
+            $act = "<img src='/plugins/farm/img/time.png' alt='' class='rpg' /> 收获剩余： " . $time_1 . "";
         }
 
         echo "<table class='post'><tr><td rowspan='2' style='width:30px'>";
-        echo "<img src='/farm/plants/" . $post['semen'] . ".png' height='30' width='30' alt='" . $name_gr . "' /></td><td> <a href='/farm/gr/" . $post['id'] . "'>" . $name_gr . "</a>";
+        echo "<img src='/plugins/farm/plants/" . $post['semen'] . ".png' height='30' width='30' alt='" . $name_gr . "' /></td><td> <a href='/plugins/farm/gr/" . $post['id'] . "'>" . $name_gr . "</a>";
         if ($post['semen'] != 0)
             echo " " . $time_1 . "";
         echo "</td>";
@@ -299,8 +299,8 @@ if ($irnum != 0 && $fuser['k_poliv'] != 0) {
         $irexp = 150 * $irnum;
     }
     echo "<div class='rowdown'>";
-    echo "<img src='/farm/img/irrigation_small.png' alt='' class='rpg' /> <a href='/farm/shop_combine.php?irrigation'>喷洒器</a> (" . $fuser['k_poliv'] . "/3 级, " . $irtime . " 秒, +<img src='/farm/img/exp.png' alt='' />" . $irexp . ")<br />";
-    echo "<img src='/farm/img/water.png' alt='' class='rpg' /> <a href='/farm/combine/irrigation.php?start'>给花土地浇水</a>";
+    echo "<img src='/plugins/farm/img/irrigation_small.png' alt='' class='rpg' /> <a href='/plugins/farm/shop_combine.php?irrigation'>喷洒器</a> (" . $fuser['k_poliv'] . "/3 级, " . $irtime . " 秒, +<img src='/plugins/farm/img/exp.png' alt='' />" . $irexp . ")<br />";
+    echo "<img src='/plugins/farm/img/water.png' alt='' class='rpg' /> <a href='/plugins/farm/combine/irrigation.php?start'>给花土地浇水</a>";
     echo "</div>";
 }
 
@@ -308,7 +308,7 @@ $plcont = dbresult(dbquery("SELECT COUNT(*) FROM `farm_semen` WHERE `id_user` = 
 if ($plcont != 0) {
     $plseed = dbarray(dbquery("SELECT * FROM `farm_semen` WHERE `id_user` = '" . $user['id'] . "' ORDER BY id DESC LIMIT 1"));
     $pln = dbarray(dbquery("SELECT * FROM `farm_plant` WHERE `id` = '" . $plseed['semen'] . "' LIMIT 1"));
-    $act = "<img src='/farm/img/plant.png' alt='' class='rpg' /> 种植 <a href='/farm/gr.php?id=" . $post['id'] . "&plantid=" . $plseed['id'] . "&posadka'>" . $pln['name'] . "</a> 或 <a href='/farm/gr.php?id=" . $post['id'] . "'>其它植物</a>";
+    $act = "<img src='/plugins/farm/img/plant.png' alt='' class='rpg' /> 种植 <a href='/plugins/farm/gr.php?id=" . $post['id'] . "&plantid=" . $plseed['id'] . "&posadka'>" . $pln['name'] . "</a> 或 <a href='/plugins/farm/gr.php?id=" . $post['id'] . "'>其它植物</a>";
 }
 $snum = dbresult(dbquery("SELECT COUNT(*) FROM `farm_gr` WHERE `id_user` = '" . $user['id'] . "' AND `semen` = '0'"), 0);
 if ($snum != 0 && $fuser['k_posadka'] != 0) {
@@ -326,29 +326,29 @@ if ($snum != 0 && $fuser['k_posadka'] != 0) {
     }
     echo "<div class='rowdown'>";
     if ($plcont != 0) {
-        echo "<img src='/farm/img/seeder_small.png' alt='' class='rpg' />  <a href='/farm/shop_combine.php?seeder'>播种机</a> (" . $fuser['k_posadka'] . "/3 级, " . $stime . " 秒, +<img src='/farm/img/exp.png' alt='' />" . $sexp . ")<br />";
-        echo "<img src='/farm/img/plant.png' alt='' class='rpg' /> <a href='/farm/combine/seeder.php?id=" . $plseed['id'] . "&start'>播种 " . $pln['name'] . "</a> <img src='/farm/img/plant.png' alt='' class='rpg' /> <a href='/farm/combine/seeder.php?select'>其他</a>";
+        echo "<img src='/plugins/farm/img/seeder_small.png' alt='' class='rpg' />  <a href='/plugins/farm/shop_combine.php?seeder'>播种机</a> (" . $fuser['k_posadka'] . "/3 级, " . $stime . " 秒, +<img src='/plugins/farm/img/exp.png' alt='' />" . $sexp . ")<br />";
+        echo "<img src='/plugins/farm/img/plant.png' alt='' class='rpg' /> <a href='/plugins/farm/combine/seeder.php?id=" . $plseed['id'] . "&start'>播种 " . $pln['name'] . "</a> <img src='/plugins/farm/img/plant.png' alt='' class='rpg' /> <a href='/plugins/farm/combine/seeder.php?select'>其他</a>";
     } else {
-        echo "<img src='/farm/img/seeder_small.png' alt='' class='rpg' /> <a href='/farm/combine/seeder.php?select'>用播种机播种 :: 无种子</a> (" . $fuser['k_posadka'] . "/3 级)";
+        echo "<img src='/plugins/farm/img/seeder_small.png' alt='' class='rpg' /> <a href='/plugins/farm/combine/seeder.php?select'>用播种机播种 :: 无种子</a> (" . $fuser['k_posadka'] . "/3 级)";
     }
     echo "</div>";
 }
 
 echo "<div class='rowup'>";
-echo "<img src='/farm/img/shop.png' alt='' class='rpg' /> 商店 <a href='/farm/shop/'>种子</a> | <a href='/farm/shop_udobr.php'>肥料</a> | <a href='/farm/shop_combine.php'>技术人员</a><br />";
-echo "<img src='/farm/img/serdechko.png' alt='' class='rpg' /> <a href='/farm/dining'>食堂</a><br />";
-echo "<img src='/farm/img/warehouse.png' alt='' class='rpg' /> <a href='/farm/ambar'>谷仓</a> | <a href='/farm/sklad'>仓库</a><br/>";
-echo "<img src='/farm/img/pet.gif' alt='' class='rpg' /> <a href='/farm/dog.php'>我的狗</a><br/>";
-echo "<img src='/farm/img/exp.png' alt='' class='rpg' /> <a href='/farm/abilities/'>技能和筹码</a><br/>";
-echo "<img src='/farm/img/village.png' alt='' class='rpg' /> <a href='/farm/stat.php'>我的统计</a><br/>";
-echo "<img src='/farm/img/harvest.png' alt='' class='rpg' /> <a href='/farm/fermers/'>全体农民</a><br/>";
+echo "<img src='/plugins/farm/img/shop.png' alt='' class='rpg' /> 商店 <a href='/plugins/farm/shop/'>种子</a> | <a href='/plugins/farm/shop_udobr.php'>肥料</a> | <a href='/plugins/farm/shop_combine.php'>技术人员</a><br />";
+echo "<img src='/plugins/farm/img/serdechko.png' alt='' class='rpg' /> <a href='/plugins/farm/dining'>食堂</a><br />";
+echo "<img src='/plugins/farm/img/warehouse.png' alt='' class='rpg' /> <a href='/plugins/farm/ambar'>谷仓</a> | <a href='/plugins/farm/sklad'>仓库</a><br/>";
+echo "<img src='/plugins/farm/img/pet.gif' alt='' class='rpg' /> <a href='/plugins/farm/dog.php'>我的狗</a><br/>";
+echo "<img src='/plugins/farm/img/exp.png' alt='' class='rpg' /> <a href='/plugins/farm/abilities/'>技能和筹码</a><br/>";
+echo "<img src='/plugins/farm/img/village.png' alt='' class='rpg' /> <a href='/plugins/farm/stat.php'>我的统计</a><br/>";
+echo "<img src='/plugins/farm/img/harvest.png' alt='' class='rpg' /> <a href='/plugins/farm/fermers/'>全体农民</a><br/>";
 
 if (!isset($_GET['add'])) {
-    echo "<img src='/img/add.png' class='rpg' /> <a href='/farm/garden/?add'>购买土地</a> <a href='/farm/help.php'>[?]</a><br/>";
+    echo "<img src='/img/add.png' class='rpg' /> <a href='/plugins/farm/garden/?add'>购买土地</a> <a href='/plugins/farm/help.php'>[?]</a><br/>";
 }
 
-echo "<img src='/farm/img/garden.png' alt='返回' class='rpg' /> <a href='/farm/garden/'>返回</a><br/>";
-echo "<img src='/img/back.png' alt='返回' class='rpg' /> <a href='/farm/'>农场首页</a>";
+echo "<img src='/plugins/farm/img/garden.png' alt='返回' class='rpg' /> <a href='/plugins/farm/garden/'>返回</a><br/>";
+echo "<img src='/img/back.png' alt='返回' class='rpg' /> <a href='/plugins/farm/'>农场首页</a>";
 echo "</div>";
 
-include_once '../sys/inc/tfoot.php';
+include_once '../../sys/inc/tfoot.php';

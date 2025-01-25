@@ -18,7 +18,7 @@ while ($post = dbarray($res)) {
         $num = 1;
     }
 
-    echo "<img src='/farm/udobr/$post[id].png' height='40' width='40'> <a href='?id=$post[id]'>" . $post['name'] . "</a> <br/>";
+    echo "<img src='/plugins/farm/udobr/$post[id].png' height='40' width='40'> <a href='?id=$post[id]'>" . $post['name'] . "</a> <br/>";
     echo "</div>";
 }
 

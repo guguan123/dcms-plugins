@@ -48,14 +48,14 @@ if ($post['time'] != NULL) {
     }
 
     if ($stadija == 0) {
-        $img = "<img src='/farm/phase/0-0.png' alt='' />";
+        $img = "<img src='/plugins/farm/phase/0-0.png' alt='' />";
     } else {
-        $img = "<img src='/farm/phase/" . $semen['id'] . "-" . $stadija . ".png' alt='' />";
+        $img = "<img src='/plugins/farm/phase/" . $semen['id'] . "-" . $stadija . ".png' alt='' />";
     }
 }
 
 if ($post['semen'] != 0) {
-    echo "<div class='rowup'><img src='/farm/img/time.png' alt='' /> 该土地种植 " . $name_gr . " 的生长阶段 " . $stname . "";
+    echo "<div class='rowup'><img src='/plugins/farm/img/time.png' alt='' /> 该土地种植 " . $name_gr . " 的生长阶段 " . $stname . "";
     if ($post['time'] > time()) {
         $timeost = $post['time'] - time();
         $timediff = $timeost;
@@ -81,7 +81,7 @@ if ($post['semen'] != 0) {
 echo "<div class='rowdown'>" . $img . "<br />";
 
 if ($post['time'] != NULL) {
-    echo "<img src='/farm/progr.php?p=$peround' alt='$peround' /><br />";
+    echo "<img src='/plugins/farm/progr.php?p=$peround' alt='$peround' /><br />";
 }
 
 $sznw = $post['sezon'] + 1;
@@ -89,11 +89,11 @@ $sznw = $post['sezon'] + 1;
 /*
 if ($sznw>$semen['let'])
 {
-$get = "<b><a href='/farm/gr.php?id=".$int."&amp;get'>Собрать</a></b>";
+$get = "<b><a href='/plugins/farm/gr.php?id=".$int."&amp;get'>Собрать</a></b>";
 }
 else
 {
-$get = "<b><a href='/farm/gr.php?id=".$int."&amp;next'>Собрать ($post[sezon] из $semen[let])</a></b>";
+$get = "<b><a href='/plugins/farm/gr.php?id=".$int."&amp;next'>Собрать ($post[sezon] из $semen[let])</a></b>";
 }
 */
 
@@ -108,7 +108,7 @@ if ($post['semen'] != 0) {
 
     echo "</div><div class='rowup'>";
     echo "<table class='post'><tr><td rowspan='2' style='width:48px'>";
-    echo "<img src='/farm/img/man.png' alt='' /></td><td>";
+    echo "<img src='/plugins/farm/img/man.png' alt='' /></td><td>";
     if (time() < $post['time']) {
         $rnd = rand($semen['rand1'], $semen['rand2']);
     } else {
@@ -116,7 +116,7 @@ if ($post['semen'] != 0) {
     }
     $all = $semen['rand2'];
     if ($post['time'] < time() && $post['time_water'] < time()) {
-        $imgwat = "(<img src='/farm/img/nowater.png' alt='' />)";
+        $imgwat = "(<img src='/plugins/farm/img/nowater.png' alt='' />)";
     } else {
         $imgwat = "";
     }
@@ -128,9 +128,9 @@ if ($post['semen'] != 0) {
         $sznw = $post['sezon'] + 1;
 
         if ($sznw > $semen['let']) {
-            $get = "<img src='/farm/img/harvest.png' alt='' /> <a href='/farm/gr.php?id=" . $int . "&amp;get'>收集</a>";
+            $get = "<img src='/plugins/farm/img/harvest.png' alt='' /> <a href='/plugins/farm/gr.php?id=" . $int . "&amp;get'>收集</a>";
         } else {
-            $get = "<img src='/farm/img/harvest.png' alt='' /> <a href='/farm/gr.php?id=" . $int . "&amp;next'>收集</a> (урожай $post[sezon] сезона из $semen[let])";
+            $get = "<img src='/plugins/farm/img/harvest.png' alt='' /> <a href='/plugins/farm/gr.php?id=" . $int . "&amp;next'>收集</a> (урожай $post[sezon] сезона из $semen[let])";
         }
         $ur = $get;
     }
@@ -199,8 +199,8 @@ if ($post['semen'] != 0) {
     if ($post['time'] > time()) {
         echo "<hr />";
         echo "<table class='post'><tr><td rowspan='2' style='width:48px'>";
-        echo "<img src='/farm/img/woman.png' alt='' /></td><td>";
-        echo "<img src='/farm/img/water.png' alt='' /> 浇灌土地铺";
+        echo "<img src='/plugins/farm/img/woman.png' alt='' /></td><td>";
+        echo "<img src='/plugins/farm/img/water.png' alt='' /> 浇灌土地铺";
         echo "</td></tr><tr><td>";
         if ($post['time_water'] > time()) {
             $ost = $post['time_water'] - time();
@@ -221,19 +221,19 @@ if ($post['semen'] != 0) {
             }
             echo "土地铺已经浇过水了。下一次浇水是在 " . $timeost . "";
         } else {
-            echo "<a href='/farm/gr.php?id=" . $int . "&amp;woter'>浇灌</a>";
+            echo "<a href='/plugins/farm/gr.php?id=" . $int . "&amp;woter'>浇灌</a>";
         }
         echo "</td></tr></table>";
     }
     if ($post['semen'] != 0 && $post['time'] > time()) {
         echo "<hr /><table class='post'><tr><td rowspan='2' style='width:48px'>";
-        echo "<img src='/farm/img/feliz.png' alt='' /></td><td>";
-        echo "<img src='/farm/img/fertilize.png' alt='' /> 肥料（一次性效果）</td></tr><tr><td>";
+        echo "<img src='/plugins/farm/img/feliz.png' alt='' /></td><td>";
+        echo "<img src='/plugins/farm/img/fertilize.png' alt='' /> 肥料（一次性效果）</td></tr><tr><td>";
         if ($post['udobr'] == 0) {
             $k2 = dbresult(dbquery("SELECT COUNT(*) FROM `farm_udobr` WHERE `id_user` = '$user[id]'"), 0);
             if ($k2 != 0) {
                 $res2 = dbquery("select * from `farm_udobr` WHERE `id_user` = '$user[id]' ");
-                echo "<form method='post' action='/farm/gr.php?id=" . $int . "&amp;$passgen' class='formfarm'>\n";
+                echo "<form method='post' action='/plugins/farm/gr.php?id=" . $int . "&amp;$passgen' class='formfarm'>\n";
                 echo "<select name='udobr'>";
                 while ($post2 = dbarray($res2)) {
                     $semen2 = dbarray(dbquery("select * from `farm_udobr_name` WHERE  `id` = '$post2[udobr]'  LIMIT 1"));
@@ -262,8 +262,8 @@ if ($post['semen'] == 0) {
         $res = dbquery("select * from `farm_semen` WHERE `id_user` = '$user[id]' ");
         echo "<div class='rowup'>";
         echo "<table class='post'><tr><td rowspan='2' style='width:48px'>";
-        echo "<img src='/farm/img/seed.png' alt='' /></td><td>";
-        echo "<img src='/farm/img/plant.png' alt='' /> 种植一棵植物";
+        echo "<img src='/plugins/farm/img/seed.png' alt='' /></td><td>";
+        echo "<img src='/plugins/farm/img/plant.png' alt='' /> 种植一棵植物";
         echo "</td></tr><tr><td>";
         echo "<form method='post' action='?id=" . $int . "&amp;$passgen' class='formfarm'>\n";
         echo "Семена:<br />\n<select name='sadit'>";
@@ -280,8 +280,8 @@ if ($post['semen'] == 0) {
     } else {
         echo "<div class='rowup'>";
         echo "<table class='post'><tr><td rowspan='2' style='width:48px'>";
-        echo "<img src='/farm/img/seed.png' alt='' /></td><td>";
-        echo "<div class='/farm/img/plant.png' alt='' /> 种植一棵植物";
+        echo "<img src='/plugins/farm/img/seed.png' alt='' /></td><td>";
+        echo "<div class='/plugins/farm/img/plant.png' alt='' /> 种植一棵植物";
         echo "</td></tr><tr><td>";
         echo '
 <select name="cad" disabled="disabled" ><br />

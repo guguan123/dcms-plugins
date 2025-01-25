@@ -1,23 +1,23 @@
 <?php
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/user.php';
+include_once '../../sys/inc/start.php';
+include_once '../../sys/inc/compress.php';
+include_once '../../sys/inc/sess.php';
+include_once '../../sys/inc/home.php';
+include_once '../../sys/inc/settings.php';
+include_once '../../sys/inc/db_connect.php';
+include_once '../../sys/inc/ipua.php';
+include_once '../../sys/inc/fnc.php';
+include_once '../../sys/inc/user.php';
 only_reg();
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    header("Location: /farm/garden/");
+    header("Location: /plugins/farm/garden/");
     exit;
 }
 
 $int = intval($_GET['id']);
 $set['title'] = '开心农场 :: 土地';
-include_once '../sys/inc/thead.php';
+include_once '../../sys/inc/thead.php';
 title();
 err();
 aut();
@@ -26,7 +26,7 @@ $ank = dbarray(dbquery("SELECT * FROM `user` WHERE `id`= '" . $int . "' LIMIT 1"
 $afuser = dbarray(dbquery("SELECT * FROM `farm_user` WHERE `uid` = '" . $ank['id'] . "' LIMIT 1"));
 
 if ($_GET['id'] == $user['id']) {
-    header('Location: /farm/garden/');
+    header('Location: /plugins/farm/garden/');
 }
 
 include 'inc/str.php';
@@ -85,7 +85,7 @@ if ($afuser['zabor_time'] > time()) {
     $health = floor($prep * 3);
     dbquery("UPDATE `farm_user` SET `xp` = `xp`-'$health' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
     add_farm_event('你受到了严重的电击。减少 -' . $health . ' 健康 (3%)');
-    header("Location: /farm/fermers/");
+    header("Location: /plugins/farm/fermers/");
     exit();
 }
 
@@ -99,12 +99,12 @@ if ($fuser['razvedka'] == 1) {
 
     if ($dog['time'] > time()) {
         echo "<div class='mdlc'><span>开发商</span><br /></div><div class='menu'>";
-        echo "<center><img src='/farm/img/dog.png' alt='' /></center><br />";
-        echo "<img src='/farm/img/pet.png' alt='' class='rpg' /> 农场 " . $ank['nick'] . " 一只邪恶的狗看守着。小心！";
+        echo "<center><img src='/plugins/farm/img/dog.png' alt='' /></center><br />";
+        echo "<img src='/plugins/farm/img/pet.png' alt='' class='rpg' /> 农场 " . $ank['nick'] . " 一只邪恶的狗看守着。小心！";
         echo "</div>";
     } else {
         echo "<div class='mdlc'><span>开发商</span><br /></div><div class='menu'>";
-        echo "<img src='/farm/img/pet_hide.png' alt='' class='rpg' /> 情报显示花园里没有狗。";
+        echo "<img src='/plugins/farm/img/pet_hide.png' alt='' class='rpg' /> 情报显示花园里没有狗。";
         echo "</div>";
     }
 }
@@ -149,7 +149,7 @@ while ($post = dbarray($res)) {
         echo "<td style='width:30px'>";
     }
 
-    echo "<img src='/farm/plants/" . $post['semen'] . ".png' height='30' width='30' alt='' /></td><td>" . $name_gr . "";
+    echo "<img src='/plugins/farm/plants/" . $post['semen'] . ".png' height='30' width='30' alt='' /></td><td>" . $name_gr . "";
 
     if ($post['semen'] != 0 && $post['time'] < time()) {
         echo " [" . $post['kol'] . "] ";
@@ -184,7 +184,7 @@ while ($post = dbarray($res)) {
         if ($post['semen'] != 0) echo " [生长]";
 
         if ($post['time'] > time()) {
-            echo "</td></tr><tr><td><img src='/farm/img/time.png' alt='' class='rpg' /> 未成熟 " . $time_1 . "</td></tr>";
+            echo "</td></tr><tr><td><img src='/plugins/farm/img/time.png' alt='' class='rpg' /> 未成熟 " . $time_1 . "</td></tr>";
         } else {
             echo "</td></tr>";
         }
@@ -198,8 +198,8 @@ echo "</div>";
 if ($k_page > 1) str('?', $k_page, $page);
 
 echo "<div class='rowdown'>";
-echo "<img src='/farm/img/garden.png' alt='' class='rpg' /> <a href='/farm/garden/'>我的农场</a><br/>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/farm/fermers/'>返回</a><br/>";
+echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的农场</a><br/>";
+echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/fermers/'>返回</a><br/>";
 echo "</div>";
 
-include_once '../sys/inc/tfoot.php';
+include_once '../../sys/inc/tfoot.php';
