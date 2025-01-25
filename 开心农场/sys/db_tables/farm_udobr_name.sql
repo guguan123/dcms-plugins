@@ -1,9 +1,9 @@
 CREATE TABLE `farm_udobr_name` (
-`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-`name` varchar(1024) NOT NULL,
-`cena` varchar(1024) NOT NULL,
-`time` varchar(1024) DEFAULT NULL,
-PRIMARY KEY (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`name` varchar(1024) NOT NULL,
+	`cena` varchar(1024) NOT NULL,
+	`time` varchar(1024) DEFAULT NULL,
+	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 INSERT INTO `farm_udobr_name` VALUES (1, '钾肥', '50', '3600');

@@ -1,17 +1,17 @@
 CREATE TABLE `farm_plant` (
-`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-`name` varchar(1024) NOT NULL,
-`opis` varchar(1024) DEFAULT NULL,
-`cena` int(11) NOT NULL,
-`dohod` varchar(1024) NOT NULL,
-`rand1` varchar(1024) NOT NULL,
-`rand2` varchar(1024) NOT NULL,
-`oput` varchar(1024) NOT NULL,
-`xp` float NOT NULL DEFAULT '0' COMMENT 'Сколько здоровья за единицу',
-`let` int(11) NOT NULL DEFAULT '1',
-`time` varchar(1024) DEFAULT NULL,
-`level` int(10) unsigned NOT NULL DEFAULT '0',
-PRIMARY KEY (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`name` varchar(1024) NOT NULL,
+	`opis` varchar(1024) DEFAULT NULL,
+	`cena` int(11) NOT NULL,
+	`dohod` varchar(1024) NOT NULL,
+	`rand1` varchar(1024) NOT NULL,
+	`rand2` varchar(1024) NOT NULL,
+	`oput` varchar(1024) NOT NULL,
+	`xp` float NOT NULL DEFAULT '0' COMMENT 'Сколько здоровья за единицу',
+	`let` int(11) NOT NULL DEFAULT '1',
+	`time` varchar(1024) DEFAULT NULL,
+	`level` int(10) unsigned NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 INSERT INTO `farm_plant` VALUES (1, '豌豆', '农场最快、最简单的产品', 50, '4', '19', '20', '1', '1.8', 1, '10800', 0);
