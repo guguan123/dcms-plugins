@@ -40,8 +40,10 @@
 ## 安装
 
 1. 解压到网站`/plugins`目录上
-2. 写入 `/plugins/farm/` 的链接
-3. 将 `farm.css` 文件中的内容复制到主题文件夹中的 `style.css` 文件
+2. 将`/farm/db_tables`目录里的数据表导入数据库
+3. 写入`/plugins/farm/`的链接
+4. 将`farm.css`文件中的内容复制到主题文件夹中的`style.css`文件
+5. 如果使用的是Nginx作为服务器，需要将`nginx.conf`的内容写入Nginx配置作为伪静态
 
 ## 联系
 

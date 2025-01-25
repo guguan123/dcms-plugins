@@ -146,9 +146,10 @@ if (isset($_GET['add'])) {
     }
 
 
-
-
-    if ($level >= $lvl) {
+    if ($k_gr > 15) {
+        echo "<div class='rowup'><img src='/plugins/farm/img/garden.png' alt='' /> <a href='/plugins/farm/garden/'>你的菜园</a> / <b>购买土地</b></div>";
+        echo "<b>你已经达到最高上线。</b><br />";
+    } elseif ($level >= $lvl) {
         echo "<div class='rowup'><img src='/plugins/farm/img/garden.png' alt='' /> <a href='/plugins/farm/garden/'>你的菜园</a> / <b>购买土地</b></div>";
         echo "<div class='rowdown'>一个土地的成本为： " . $cost . " <br />";
         echo "需要等级: " . $lvl . "</div>";
