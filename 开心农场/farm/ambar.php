@@ -8,12 +8,13 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
+include_once 'inc/fnc.php';
 only_reg();
 $set['title'] = '开心农场 :: 仓库';
 include_once '../../sys/inc/thead.php';
 title();
 err();
-@$int = intval($_GET['id']);
+$int = intval($_GET['id']);
 $fuser = dbarray(dbquery("SELECT * FROM `farm_user` WHERE `uid` = '" . $user['id'] . "' LIMIT 1"));
 
 if (isset($_GET['sell_all'])) {
