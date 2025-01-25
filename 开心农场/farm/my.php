@@ -89,7 +89,7 @@ if (isset($_GET['gr_add']) && $fuser['gold'] >= 5000) {
     }
 
     if (($fuser['gold'] >= $cost) and ($level >= $lvl)) {
-        dbquery("UPDATE `farm_user` SET `farm_gold` = " . ($fuser['gold'] - $cost) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
+        dbquery("UPDATE `farm_user` SET `gold` = " . ($fuser['gold'] - $cost) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
         dbquery("INSERT INTO `farm_gr` (`semen`, `id_user`) VALUES  ( '0', '" . $user['id'] . "') ");
         header('Location: /plugins/farm/garden/?add_ok');
     } else {

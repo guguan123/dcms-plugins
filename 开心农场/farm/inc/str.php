@@ -142,7 +142,12 @@ $i = dbquery("SELECT * FROM `farm_gr` WHERE `kol` = '0' AND `id_user` = '".$user
 while ($ii = dbarray($i)) {
 	$semenk = dbarray(dbquery("SELECT * FROM `farm_plant` WHERE  `id` = '".$ii['semen']."'  LIMIT 1")); 
 
-	$pt = rand($semenk['rand1'],$semenk['rand2']);
+	if ($semenk && isset($semenk['rand1']) && isset($semenk['rand2'])) {
+		$pt = rand($semenk['rand1'], $semenk['rand2']);
+	} else {
+		// 如果没有找到对应的种子或缺少 rand1, rand2 值，进行处理
+		$pt = 0; // 默认值，或者你可以选择其他处理方式
+	}
 
 	dbquery("UPDATE `farm_gr` SET `kol` = '".$pt."' WHERE `id` = '".$ii['id']."' LIMIT 1");
 }
