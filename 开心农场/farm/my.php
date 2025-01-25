@@ -345,11 +345,11 @@ echo "<img src='/plugins/farm/img/village.png' alt='' class='rpg' /> <a href='/p
 echo "<img src='/plugins/farm/img/harvest.png' alt='' class='rpg' /> <a href='/plugins/farm/fermers/'>全体农民</a><br/>";
 
 if (!isset($_GET['add'])) {
-    echo "<img src='/img/add.png' class='rpg' /> <a href='/plugins/farm/garden/?add'>购买土地</a> <a href='/plugins/farm/help.php'>[?]</a><br/>";
+    echo "<img src='/plugins/farm/img/add.png' class='rpg' /> <a href='/plugins/farm/garden/?add'>购买土地</a> <a href='/plugins/farm/help.php'>[?]</a><br/>";
 }
 
 echo "<img src='/plugins/farm/img/garden.png' alt='返回' class='rpg' /> <a href='/plugins/farm/garden/'>返回</a><br/>";
-echo "<img src='/img/back.png' alt='返回' class='rpg' /> <a href='/plugins/farm/'>农场首页</a>";
+echo "<img src='/plugins/farm/img/back.png' alt='返回' class='rpg' /> <a href='/plugins/farm/'>农场首页</a>";
 echo "</div>";
 
 include_once '../../sys/inc/tfoot.php';

@@ -90,7 +90,7 @@ echo "增加收获时的产量</td></tr></table>";
 
 if ($fuser['selection']==0)
 {
-echo "<img src='/img/deletemail.gif' alt='' class='rpg' /> 这是你还没有学会的技能";
+echo "<img src='/plugins/farm/img/deletemail.gif' alt='' class='rpg' /> 这是你还没有学会的技能";
 }
 
 if ($fuser['selection']==1)
@@ -124,7 +124,7 @@ $nameur="第五次（最多）";
 
 if ($fuser['selection']!=0)
 {
-echo "<img src='/img/add.png' alt='' class='rpg' /> 你对该技能的熟练程度 - <span class='underline'>".$nameur."</span>";
+echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> 你对该技能的熟练程度 - <span class='underline'>".$nameur."</span>";
 }
 
 echo "<br />";
@@ -132,23 +132,23 @@ echo "&raquo; 第 1 级--收益率 +5% (<img src='/plugins/farm/img/gems.png' al
 
 if ($fuser['selection']==0)
 {
-echo "<img src='/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?selection_up'>升级 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />8</a></span><br />";
+echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?selection_up'>升级 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />8</a></span><br />";
 }
 
 if ($fuser['selection']>0 && $fuser['selection']<5)
 {
-echo "<img src='/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?selection_up'>提高技能等级，为 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />".$cost."</a></span><br />";
+echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?selection_up'>提高技能等级，为 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />".$cost."</a></span><br />";
 }
 
 if ($fuser['selection']==5)
 {
-echo "<img src='/img/accept.png' alt='' class='rpg' /> <span class='underline'>你已经完成了这项技能的所有训练</span><br />";
+echo "<img src='/plugins/farm/img/accept.png' alt='' class='rpg' /> <span class='underline'>你已经完成了这项技能的所有训练</span><br />";
 }
 
 echo '</div>';
 
 echo "<div class='rowdown'>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/abilities/'>对技能列表</a><br />";
+echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/abilities/'>对技能列表</a><br />";
 echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的土地</a>";
 echo "</div>";
 

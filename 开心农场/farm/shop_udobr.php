@@ -30,9 +30,9 @@ if (isset($_GET['id'])) {
 }
 
 echo "<div class='rowdown'>";
-if (isset($_GET['id'])) echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/shop_udobr.php'>肥料商店</a><br />";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的农场</a><br />";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/'>返回</a>";
+if (isset($_GET['id'])) echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/shop_udobr.php'>肥料商店</a><br />";
+echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的农场</a><br />";
+echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/'>返回</a>";
 echo "</div>";
 
 include_once '../../sys/inc/tfoot.php';

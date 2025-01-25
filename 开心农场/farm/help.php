@@ -53,13 +53,13 @@ if (isset($_GET['weather'])) {
     }
 
     echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' />当前天气: <img src='/plugins/farm/weather/" . $fconf['weather'] . ".png' alt='' />" . $name . "<br />";
-    echo "<img src='/img/add.png' alt='' class='rpg' /> 影响: " . $uro . " ";
+    echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> 影响: " . $uro . " ";
     if (isset($mess)) {
         echo "(" . $uron . ") ";
     }
     echo "收获";
     if (isset($mess)) {
-        echo "<br /><img src='/img/accept.png' alt='' class='rpg' /> 你已经学习了<b>Teplitsa</b>的技能。天气的负面影响不影响你的收成";
+        echo "<br /><img src='/plugins/farm/img/accept.png' alt='' class='rpg' /> 你已经学习了<b>Teplitsa</b>的技能。天气的负面影响不影响你的收成";
     }
     echo "</div>";
 }
@@ -73,7 +73,7 @@ if (!isset($_GET['weather'])) {
 }
 
 echo "</div><div class='rowup'>";
-echo "<img src='/img/back.png' alt='返回' class='rpg' /> <a href='/plugins/farm/garden/'>我的土地</a><br/>";
+echo "<img src='/plugins/farm/img/back.png' alt='返回' class='rpg' /> <a href='/plugins/farm/garden/'>我的土地</a><br/>";
 echo "</div>";
 
 include_once '../../sys/inc/tfoot.php';

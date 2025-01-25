@@ -567,7 +567,7 @@ if ($post) {
 
 echo "<div class='rowdown'>";
 echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>返回</a><br/>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/'>我的农场</a>";
+echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/'>我的农场</a>";
 echo "</div>";
 
 include_once '../../sys/inc/tfoot.php';

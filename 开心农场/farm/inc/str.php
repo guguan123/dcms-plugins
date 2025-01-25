@@ -131,9 +131,9 @@ echo "<a href='/plugins/farm/garden/'><img src='/plugins/farm/img/home.jpg' alt=
 echo "<a href='/plugins/farm/exchanger'>
       <img src='/plugins/farm/img/money.png' alt='' />" . $money . $money_ed;
 echo "<img src='/plugins/farm/img/gems.png' alt='' /> ".$fuser['gems']."</a> ";
-echo "<img src='/img/rosette.png' alt='' width='13' height='13' /> ".$level." ";
+echo "<img src='/plugins/farm/img/rosette.png' alt='' width='13' height='13' /> ".$level." ";
 echo "<img src='/plugins/farm/img/exp.png' alt='' /> " . $exp . $exp_ed;
-echo "<a href='/plugins/farm/dining'><img src='/img/serdechko.png' alt='' width='13' height='13' /> ".$xp."".$xp_ed."</a>";
+echo "<a href='/plugins/farm/dining'><img src='/plugins/farm/img/serdechko.png' alt='' width='13' height='13' /> ".$xp."".$xp_ed."</a>";
 echo "<span style='float:right'><a href='/plugins/farm/help.php?weather'><img src='/plugins/farm/weather/".$fconf['weather'].".png' alt='' /></a></span>";
 echo "</div>";
 
@@ -219,7 +219,7 @@ if ($fuser['k_poliv_time'] > time()) {
 	echo "<img src='/plugins/farm/img/irrigation_small.png' alt='' class='rpg' /> 你现在用喷头浇水。<br /><img src='/plugins/farm/img/time.png' alt='' class='rpg' /> 再等一会 ".sklon_after_number("$tos","一秒","秒","秒",1)."";
 	echo "</div>";
 	echo "<div class='rowdown'>";
-	echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/?".$passgen."'>更新</a>";
+	echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/?".$passgen."'>更新</a>";
 	echo "</div>";
 	include_once '../../sys/inc/tfoot.php';
 }
@@ -230,7 +230,7 @@ if ($fuser['k_posadka_time']>time()) {
 	echo "<img src='/plugins/farm/img/seeder_small.png' alt='' class='rpg' /> 你现在用播种机把植物种在花土地上。<br /><img src='/plugins/farm/img/time.png' alt='' class='rpg' /> 再等一会 ".sklon_after_number("$tos","一秒","秒","秒",1)."";
 	echo "</div>";
 	echo "<div class='rowdown'>";
-	echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/?".$passgen."'>更新</a>";
+	echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/?".$passgen."'>更新</a>";
 	echo "</div>";
 	include_once '../../sys/inc/tfoot.php';
 }

@@ -41,8 +41,8 @@ farm_event();
 echo "<div class='rowup'>技能 :: 电栅栏</div>";
 echo "<div class='rowdown'>";
 echo "<table class='post'><tr><td><img src='/plugins/farm/img/electro.png' alt='' /></td><td><b>电动围栏</b> 保护你的花园周边，防止盗贼进入你的苗土地。如果他们这样做，他们会被电击。</td></tr></table>";
-echo "<img src='/img/accept.png' alt='' class='rpg' /> 租金价格 - <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />1 天 1 次<br />";
-echo "<img src='/img/accept.png' alt='' class='rpg' /> 在你的账户上。 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />".sklon_after_number("$fuser[gems]","钻石","钻石","钻石",1)."<br />";
+echo "<img src='/plugins/farm/img/accept.png' alt='' class='rpg' /> 租金价格 - <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />1 天 1 次<br />";
+echo "<img src='/plugins/farm/img/accept.png' alt='' class='rpg' /> 在你的账户上。 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />".sklon_after_number("$fuser[gems]","钻石","钻石","钻石",1)."<br />";
 if ($fuser['zabor_time']<time())
 {
 echo "<form action='?".$passgen."' method='post'>";
@@ -69,7 +69,7 @@ echo "<img src='/plugins/farm/img/electro.png' alt='' class='rpg' /> 电动围�
 echo "</div>";
 
 echo "<div class='rowdown'>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/abilities/'>到技能列表</a><br />";
+echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/abilities/'>到技能列表</a><br />";
 echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的土地</a>";
 echo "</div>";
 include_once '../../../sys/inc/tfoot.php';

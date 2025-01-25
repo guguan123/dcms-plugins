@@ -74,7 +74,7 @@ if (isset($_GET['id'])) {
     echo "<input type='submit' name='save' value='出售' />\n";
     echo "</form>\n";
     echo "<div class='rowup'>";
-    echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/sklad'>仓库</a><br/>";
+    echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/sklad'>仓库</a><br/>";
     echo "</div>";
 } else {
 
@@ -101,7 +101,7 @@ if (isset($_GET['id'])) {
         }
 
         echo "<div class='rowdown'>";
-        echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/sklad?sell_all'>把一切都卖了 " . intval($_SESSION['sum']) . " 黄金</a></div>";
+        echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/sklad?sell_all'>把一切都卖了 " . intval($_SESSION['sum']) . " 黄金</a></div>";
     }
 
 

@@ -38,16 +38,16 @@ echo "<div class='rowdown'>";
 echo "<table class='post'><tr><td><img src='/plugins/farm/img/shield.gif' alt='' /></td><td>技能 <b>侦察</b> 让你有机会看到一只狗在一个被抢劫的农民的栅栏后面。它还提供了确定电流是否在电栅栏中传导的能力。</td></tr></table>";
 if ($fuser['razvedka']==0)
 {
-echo "<img src='/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?learn'>学习技能 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />35</a></span>";
+echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?learn'>学习技能 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />35</a></span>";
 }
 else
 {
-echo "<img src='/img/accept.png' alt='' class='rpg' /> 技能已经学会了";
+echo "<img src='/plugins/farm/img/accept.png' alt='' class='rpg' /> 技能已经学会了";
 }
 echo "</div>";
 
 echo "<div class='rowdown'>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/abilities/'>到技能列表</a><br />";
+echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/abilities/'>到技能列表</a><br />";
 echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的土地</a>";
 echo "</div>";
 include_once '../../../sys/inc/tfoot.php';

@@ -4,7 +4,7 @@ $int = intval($_GET['id']);
 $notis = dbresult(dbquery("SELECT COUNT(*) FROM `farm_plant` WHERE  `id` = '$int'"), 0);
 if ($notis == 0) {
     echo "<div class='err'>没有这样的植物</div>";
-    echo "<img src='/img/back.png' alt='' /> <a href='shop.php'>返回</a>";
+    echo "<img src='/plugins/farm/img/back.png' alt='' /> <a href='shop.php'>返回</a>";
     include_once '../../sys/inc/tfoot.php';
     exit;
 }

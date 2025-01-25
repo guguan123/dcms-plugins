@@ -97,7 +97,7 @@ if (isset($_GET['id'])) {
         }
 
         echo "<div class='rowdown'>";
-        echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/ambar?sell_all'>把一切都卖了 " . intval($_SESSION['sum']) . " 黄金</a></div>";
+        echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/ambar?sell_all'>把一切都卖了 " . intval($_SESSION['sum']) . " 黄金</a></div>";
     }
 
 

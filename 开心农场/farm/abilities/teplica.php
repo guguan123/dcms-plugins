@@ -38,16 +38,16 @@ echo "<div class='rowdown'>";
 echo "<table class='post'><tr><td><img src='/plugins/farm/img/tep.gif' alt='' /></td><td>技巧 <b>温室</b> 消除了天气的不利影响</td></tr></table>";
 if ($fuser['teplica']==0)
 {
-echo "<img src='/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?learn'>学习技能 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />35</a></span>";
+echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> <span class='underline'><a href='?learn'>学习技能 <img src='/plugins/farm/img/gems.png' alt='' class='rpg' />35</a></span>";
 }
 else
 {
-echo "<img src='/img/accept.png' alt='' class='rpg' /> 已经学会的技能";
+echo "<img src='/plugins/farm/img/accept.png' alt='' class='rpg' /> 已经学会的技能";
 }
 echo "</div>";
 
 echo "<div class='rowdown'>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/abilities/'>对技能列表</a><br />";
+echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/abilities/'>对技能列表</a><br />";
 echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的土地</a>";
 echo "</div>";
 include_once '../../../sys/inc/tfoot.php';

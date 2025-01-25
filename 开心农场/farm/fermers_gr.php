@@ -200,7 +200,7 @@ if ($k_page > 1) str('?', $k_page, $page);
 
 echo "<div class='rowdown'>";
 echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>我的农场</a><br/>";
-echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/fermers/'>返回</a><br/>";
+echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/fermers/'>返回</a><br/>";
 echo "</div>";
 
 include_once '../../sys/inc/tfoot.php';

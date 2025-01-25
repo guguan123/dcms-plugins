@@ -19,7 +19,7 @@ include_once 'inc/str.php';
 farm_event();
 
 echo "<div class='mdlc'><span>我的统计数据</span><br /></div><div class='menu'>";
-echo "<img src='/img/rosette.png' alt='' class='rpg' /> 等级: " . $level . "<br />";
+echo "<img src='/plugins/farm/img/rosette.png' alt='' class='rpg' /> 等级: " . $level . "<br />";
 echo "<img src='/plugins/farm/img/money.png' alt='' class='rpg' /> 货币: " . $fuser['gold'] . "<br />";
 echo "<img src='/plugins/farm/img/gems.png' alt='' class='rpg' /> 钻石: " . $fuser['gems'] . "<br />";
 echo "<img src='/plugins/farm/img/exp.png' alt='' class='rpg' /> 经验: " . $fuser['exp'] . "<br />";

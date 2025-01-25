@@ -77,7 +77,7 @@ if (isset($_GET['id'])) {
     echo "</form>\n";
 
     echo "<div class='rowup'>";
-    echo "<img src='/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/dining'>饭厅</a>";
+    echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/dining'>饭厅</a>";
     echo "</div>";
 } else {
 
@@ -104,7 +104,7 @@ if (isset($_GET['id'])) {
         }
 
         echo "<div class='rowdown'>";
-        echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/dining?eat_all'>把它全部吃完。添加 " . intval($_SESSION['sum']) . " 健康</a></div>";
+        echo "<img src='/plugins/farm/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/dining?eat_all'>把它全部吃完。添加 " . intval($_SESSION['sum']) . " 健康</a></div>";
     }
 
 
