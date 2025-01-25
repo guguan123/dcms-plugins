@@ -1,13 +1,12 @@
 <?php
-$chk=dbresult(dbquery("SELECT COUNT(*) FROM `farm_user` WHERE `uid` = '".$user['id']."'"), 0);
+$chk=dbresult(dbquery("SELECT COUNT(*) FROM `farm_user` WHERE `uid` = '" . $user['id'] . "'"), 0);
 
-if ($chk==0)
-{
-header("Location: /plugins/farm/welcome");
-exit();
+if ($chk==0) {
+	header("Location: /plugins/farm/welcome");
+	exit();
 }
 
-$fuser = dbarray(dbquery("SELECT * FROM `farm_user` WHERE `uid` = '".$user['id']."' LIMIT 1"));
+$fuser = dbarray(dbquery("SELECT * FROM `farm_user` WHERE `uid` = '" . $user['id'] . "' LIMIT 1"));
 
 
 if($fuser['exp']>=0 && $fuser['exp']<=150 || $fuser['exp']<=0 && $fuser['exp']<=150)$level=0;
@@ -84,157 +83,154 @@ elseif($fuser['exp']>=8000001 && $fuser['exp']<=9000000)$level=71;
 elseif($fuser['exp']>=9000001 && $fuser['exp']<=10000000)$level=72;
 elseif($fuser['exp']>=10000001 && $fuser['exp']<=11000000)$level=73;
 
-if (@$fuser['level']!=$level)
-{
-    
-dbquery("UPDATE `farm_user` SET `level` = '".$level."' WHERE `uid` = ".$user['id']." LIMIT 1");
-
-}
+if (@$fuser['level']!=$level) dbquery("UPDATE `farm_user` SET `level` = '".$level."' WHERE `uid` = ".$user['id']." LIMIT 1");
 
 $money = $fuser['gold'];
-$money_ed='';
-if ($money>=1000){$money= round($money/1000 , 2);$money_ed='K';}
-if ($money>=1000){$money= round($money/1000 , 2);$money_ed='M';}
+$money_ed = '';
+if ($money >= 1000) {
+	$money = round($money / 1000, 2);
+	$money_ed = 'K';
+}
+if ($money >= 1000) {
+	$money = round($money / 1000, 2);
+	$money_ed = 'M';
+}
 
 $exp = $fuser['exp'];
-$exp_ed='';
-if ($exp>=1000){$exp= round($exp/1000 , 2);$exp_ed='K';}
-if ($exp>=1000){$exp= round($exp/1000 , 2);$exp_ed='M';}
+$exp_ed = '';
+if ($exp >= 1000) {
+	$exp = round($exp / 1000 , 2);
+	$exp_ed = 'K';
+}
+if ($exp >= 1000) {
+	$exp = round($exp / 1000, 2);
+	$exp_ed='M';
+}
 
 $xp = $fuser['xp'];
-$xp_ed='';
-if ($xp>=1000){$xp= round($xp/1000 , 2);$xp_ed='K';}
-if ($xp>=1000){$xp= round($xp/1000 , 2);$xp_ed='M';}
+$xp_ed = '';
+if ($xp >= 1000) {
+	$xp = round($xp / 1000, 2);
+	$xp_ed = 'K';
+}
+if ($xp >= 1000) {
+	$xp = round($xp / 1000, 2);
+	$xp_ed='M';
+}
 
 $fconf = dbarray(dbquery("SELECT * FROM `farm_conf` ORDER BY id DESC LIMIT 1"));
 
-if (time()>$fconf['time_weather'])
-{
-$new = rand(1,5);
-$timenew = time()+10800;
-dbquery("INSERT INTO `farm_conf` (`weather`, `time_weather`) VALUES ('".$new."', '".$timenew."')");
+if (time()>$fconf['time_weather']) {
+	$new = rand(1, 5);
+	$timenew = time() + 10800;
+	dbquery("INSERT INTO `farm_conf` (`weather`, `time_weather`) VALUES ('$new', '$timenew')");
 }
 
 echo "<div class='rowdown'>";
 echo "<a href='/plugins/farm/garden/'><img src='/plugins/farm/img/home.jpg' alt='' /></a> ";
-echo "<a href='/plugins/farm/exchanger'><img src='/plugins/farm/img/money.png' alt='' /> ".$money."".$money_ed." ";
+echo "<a href='/plugins/farm/exchanger'>
+      <img src='/plugins/farm/img/money.png' alt='' />" . $money . $money_ed;
 echo "<img src='/plugins/farm/img/gems.png' alt='' /> ".$fuser['gems']."</a> ";
 echo "<img src='/img/rosette.png' alt='' width='13' height='13' /> ".$level." ";
-echo "<img src='/plugins/farm/img/exp.png' alt='' /> ".$exp."".$exp_ed." ";
+echo "<img src='/plugins/farm/img/exp.png' alt='' /> " . $exp . $exp_ed;
 echo "<a href='/plugins/farm/dining'><img src='/img/serdechko.png' alt='' width='13' height='13' /> ".$xp."".$xp_ed."</a>";
 echo "<span style='float:right'><a href='/plugins/farm/help.php?weather'><img src='/plugins/farm/weather/".$fconf['weather'].".png' alt='' /></a></span>";
 echo "</div>";
 
 
 $i = dbquery("SELECT * FROM `farm_gr` WHERE `kol` = '0' AND `id_user` = '".$user['id']."'"); 
-while ($ii = dbarray($i)){
+while ($ii = dbarray($i)) {
+	$semenk = dbarray(dbquery("SELECT * FROM `farm_plant` WHERE  `id` = '".$ii['semen']."'  LIMIT 1")); 
 
-$semenk=dbarray(dbquery("SELECT * FROM `farm_plant` WHERE  `id` = '".$ii['semen']."'  LIMIT 1")); 
+	$pt = rand($semenk['rand1'],$semenk['rand2']);
 
-$pt=rand($semenk['rand1'],$semenk['rand2']);
-
-dbquery("UPDATE `farm_gr` SET `kol` = '".$pt."' WHERE `id` = '".$ii['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_gr` SET `kol` = '".$pt."' WHERE `id` = '".$ii['id']."' LIMIT 1");
 }
 
 
 $i2 = dbquery("SELECT * FROM `farm_gr` WHERE `kol` = '-1' AND `id_user` = '".$user['id']."'"); 
-while ($ii2 = dbarray($i2)){
+while ($ii2 = dbarray($i2)) {
+	$semenk2=dbarray(dbquery("SELECT * FROM `farm_plant` WHERE  `id` = '".$ii2['semen']."'  LIMIT 1")); 
 
-$semenk2=dbarray(dbquery("SELECT * FROM `farm_plant` WHERE  `id` = '".$ii2['semen']."'  LIMIT 1")); 
+	$pt2=rand($semenk2['rand1'],$semenk2['rand2']);
 
-$pt2=rand($semenk2['rand1'],$semenk2['rand2']);
-
-dbquery("UPDATE `farm_gr` SET `kol` = '".$pt2."' WHERE `id` = '".$ii2['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_gr` SET `kol` = '".$pt2."' WHERE `id` = '".$ii2['id']."' LIMIT 1");
 }
 
-if ($fuser['posadka']>=50 && $fuser['posadka']<500 && $fuser['posadka_1']==0)
-{
-dbquery("UPDATE `farm_user` SET `gems` = `gems`+'15' WHERE `uid` = '".$user['id']."' LIMIT 1");
-dbquery("UPDATE `farm_user` SET `posadka_1` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
-add_farm_event('你已经达到了 [b] 熟练园丁 [/b] 成就的第 1 级。你已经种植了 [b]50[/b] 株植物。你获得了 [b] 铜牌园丁 [/b] 的称号。你获得了 [b]15[/b] 钻石。');
+if ($fuser['posadka']>=50 && $fuser['posadka']<500 && $fuser['posadka_1']==0) {
+	dbquery("UPDATE `farm_user` SET `gems` = `gems`+'15' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_user` SET `posadka_1` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	add_farm_event('你已经达到了 [b] 熟练园丁 [/b] 成就的第 1 级。你已经种植了 [b]50[/b] 株植物。你获得了 [b] 铜牌园丁 [/b] 的称号。你获得了 [b]15[/b] 钻石。');
 }
 
-if ($fuser['posadka']>=500 && $fuser['posadka']<1000 && $fuser['posadka_1']==1 && $fuser['posadka_2']==0)
-{
-dbquery("UPDATE `farm_user` SET `gems` = `gems`+'50' WHERE `uid` = '".$user['id']."' LIMIT 1");
-dbquery("UPDATE `farm_user` SET `posadka_2` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
-add_farm_event('你已经达到了 [b] 熟练园丁 [/b] 成就的第二级。你已经种植了 [b]500[/b] 株植物。你获得了 [b] 银色园丁 [/b] 的称号。你获得了 [b]50[/b] 钻石。');
+if ($fuser['posadka']>=500 && $fuser['posadka']<1000 && $fuser['posadka_1']==1 && $fuser['posadka_2']==0) {
+	dbquery("UPDATE `farm_user` SET `gems` = `gems`+'50' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_user` SET `posadka_2` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	add_farm_event('你已经达到了 [b] 熟练园丁 [/b] 成就的第二级。你已经种植了 [b]500[/b] 株植物。你获得了 [b] 银色园丁 [/b] 的称号。你获得了 [b]50[/b] 钻石。');
 }
 
-if ($fuser['posadka']>=1000 && $fuser['posadka']<3000 && $fuser['posadka_1']==1 && $fuser['posadka_2']==1 && $fuser['posadka_3']==0)
-{
-dbquery("UPDATE `farm_user` SET `gems` = `gems`+'150' WHERE `uid` = '".$user['id']."' LIMIT 1");
-dbquery("UPDATE `farm_user` SET `posadka_3` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
-add_farm_event('你已经达到了 [b] 熟练园丁 [/b] 成就的第三级。你已经种植了 [b]1000[/b]。你获得了 [b] 黄金园丁 [/b] 的称号。你被授予 [b]150[/b] 钻石。');
+if ($fuser['posadka']>=1000 && $fuser['posadka']<3000 && $fuser['posadka_1']==1 && $fuser['posadka_2']==1 && $fuser['posadka_3']==0) {
+	dbquery("UPDATE `farm_user` SET `gems` = `gems`+'150' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_user` SET `posadka_3` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	add_farm_event('你已经达到了 [b] 熟练园丁 [/b] 成就的第三级。你已经种植了 [b]1000[/b]。你获得了 [b] 黄金园丁 [/b] 的称号。你被授予 [b]150[/b] 钻石。');
 }
 
 
-if ($fuser['poliv']>=50 && $fuser['poliv']<500 && $fuser['poliv_1']==0)
-{
-dbquery("UPDATE `farm_user` SET `gems` = `gems`+'15' WHERE `uid` = '".$user['id']."' LIMIT 1");
-dbquery("UPDATE `farm_user` SET `poliv_1` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
-add_farm_event('你已经达到了 [b] 浇灌大师 [/b] 成就的第 1 级。你已经浇灌了 [b]50[/b] 株植物。你获得了 [b] 铜牌浇灌者 [/b] 的称号。你被授予 [b]15[/b] 颗钻石。');
+if ($fuser['poliv']>=50 && $fuser['poliv']<500 && $fuser['poliv_1']==0) {
+	dbquery("UPDATE `farm_user` SET `gems` = `gems`+'15' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_user` SET `poliv_1` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	add_farm_event('你已经达到了 [b] 浇灌大师 [/b] 成就的第 1 级。你已经浇灌了 [b]50[/b] 株植物。你获得了 [b] 铜牌浇灌者 [/b] 的称号。你被授予 [b]15[/b] 颗钻石。');
 }
 
-if ($fuser['poliv']>=500 && $fuser['poliv']<1000 && $fuser['poliv_1']==1 && $fuser['poliv_2']==0)
-{
-dbquery("UPDATE `farm_user` SET `gems` = `gems`+'50' WHERE `uid` = '".$user['id']."' LIMIT 1");
-dbquery("UPDATE `farm_user` SET `poliv_2` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
-add_farm_event('你已经达到了 [b] 浇灌大师 [/b] 成就的第二级。你已经浇灌了 [b]500[/b] 株植物。你获得了 [b] 白银浇灌者 [/b] 的称号。你被授予 [b]50[/b] 钻石。');
+if ($fuser['poliv']>=500 && $fuser['poliv']<1000 && $fuser['poliv_1']==1 && $fuser['poliv_2']==0) {
+	dbquery("UPDATE `farm_user` SET `gems` = `gems`+'50' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_user` SET `poliv_2` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	add_farm_event('你已经达到了 [b] 浇灌大师 [/b] 成就的第二级。你已经浇灌了 [b]500[/b] 株植物。你获得了 [b] 白银浇灌者 [/b] 的称号。你被授予 [b]50[/b] 钻石。');
 }
 
-if ($fuser['poliv']>=1000 && $fuser['poliv']<3000 && $fuser['poliv_1']==1 && $fuser['poliv_2']==1 && $fuser['poliv_3']==0)
-{
-dbquery("UPDATE `farm_user` SET `gems` = `gems`+'150' WHERE `uid` = '".$user['id']."' LIMIT 1");
-dbquery("UPDATE `farm_user` SET `poliv_3` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
-add_farm_event('你已经达到了 [b] 浇灌大师 [/b] 成就的第三层。你已经浇灌了 [b]1000[/b] 株植物。你获得了 [b] 黄金浇灌者 [/b] 的称号。你被授予 [b]150[/b] 钻石。');
+if ($fuser['poliv']>=1000 && $fuser['poliv']<3000 && $fuser['poliv_1']==1 && $fuser['poliv_2']==1 && $fuser['poliv_3']==0) {
+	dbquery("UPDATE `farm_user` SET `gems` = `gems`+'150' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_user` SET `poliv_3` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	add_farm_event('你已经达到了 [b] 浇灌大师 [/b] 成就的第三层。你已经浇灌了 [b]1000[/b] 株植物。你获得了 [b] 黄金浇灌者 [/b] 的称号。你被授予 [b]150[/b] 钻石。');
 }
 
 
-if ($fuser['udobrenie']>=50 && $fuser['udobrenie']<500 && $fuser['udobrenie_1']==0)
-{
-dbquery("UPDATE `farm_user` SET `gems` = `gems`+'15' WHERE `uid` = '".$user['id']."' LIMIT 1");
-dbquery("UPDATE `farm_user` SET `udobrenie_1` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
-add_farm_event('你已经达到了 [b] 施肥大师 [/b] 成就的第 1 级。你已经为 [b]50[/b] 种植物施肥。你被授予 [b] 铜牌肥料 [/b] 的称号。你被授予 [b]15[/b] 钻石。');
+if ($fuser['udobrenie']>=50 && $fuser['udobrenie']<500 && $fuser['udobrenie_1']==0) {
+	dbquery("UPDATE `farm_user` SET `gems` = `gems`+'15' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_user` SET `udobrenie_1` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	add_farm_event('你已经达到了 [b] 施肥大师 [/b] 成就的第 1 级。你已经为 [b]50[/b] 种植物施肥。你被授予 [b] 铜牌肥料 [/b] 的称号。你被授予 [b]15[/b] 钻石。');
 }
 
-if ($fuser['udobrenie']>=500 && $fuser['udobrenie']<1000 && $fuser['udobrenie_1']==1 && $fuser['udobrenie_2']==0)
-{
-dbquery("UPDATE `farm_user` SET `gems` = `gems`+'50' WHERE `uid` = '".$user['id']."' LIMIT 1");
-dbquery("UPDATE `farm_user` SET `udobrenie_2` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
-add_farm_event('你已经达到了 [b] 肥料 [/b] 大师成就的第二级。你已经为 [b]500[/b] 株植物施肥。你被授予 [b] 银色肥料 [/b] 的称号。你被授予 [b]50[/b] 钻石。');
+if ($fuser['udobrenie']>=500 && $fuser['udobrenie']<1000 && $fuser['udobrenie_1']==1 && $fuser['udobrenie_2']==0) {
+	dbquery("UPDATE `farm_user` SET `gems` = `gems`+'50' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_user` SET `udobrenie_2` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	add_farm_event('你已经达到了 [b] 肥料 [/b] 大师成就的第二级。你已经为 [b]500[/b] 株植物施肥。你被授予 [b] 银色肥料 [/b] 的称号。你被授予 [b]50[/b] 钻石。');
 }
 
-if ($fuser['udobrenie']>=1000 && $fuser['udobrenie']<3000 && $fuser['udobrenie_1']==1 && $fuser['udobrenie_2']==1 && $fuser['udobrenie_3']==0)
-{
-dbquery("UPDATE `farm_user` SET `gems` = `gems`+'150' WHERE `uid` = '".$user['id']."' LIMIT 1");
-dbquery("UPDATE `farm_user` SET `udobrenie_3` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
-add_farm_event('你已经达到了 [b] 肥料 [/b] 大师成就的第三关。你已经为 [b]1000[/b] 株植物施肥。你被授予 [b] 黄金肥料 [/b] 的称号。你被授予 [b]150[/b] 钻石。');
+if ($fuser['udobrenie']>=1000 && $fuser['udobrenie']<3000 && $fuser['udobrenie_1']==1 && $fuser['udobrenie_2']==1 && $fuser['udobrenie_3']==0) {
+	dbquery("UPDATE `farm_user` SET `gems` = `gems`+'150' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	dbquery("UPDATE `farm_user` SET `udobrenie_3` = '1' WHERE `uid` = '".$user['id']."' LIMIT 1");
+	add_farm_event('你已经达到了 [b] 肥料 [/b] 大师成就的第三关。你已经为 [b]1000[/b] 株植物施肥。你被授予 [b] 黄金肥料 [/b] 的称号。你被授予 [b]150[/b] 钻石。');
 }
 
-if ($fuser['k_poliv_time']>time())
-{
-$tos=$fuser['k_poliv_time']-time();
-echo "<div class='rowup'>";
-echo "<img src='/plugins/farm/img/irrigation_small.png' alt='' class='rpg' /> 你现在用喷头浇水。<br /><img src='/plugins/farm/img/time.png' alt='' class='rpg' /> 再等一会 ".sklon_after_number("$tos","一秒","秒","秒",1)."";
-echo "</div>";
-echo "<div class='rowdown'>";
-echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/?".$passgen."'>更新</a>";
-echo "</div>";
-include_once '../../sys/inc/tfoot.php';
-exit();
+if ($fuser['k_poliv_time'] > time()) {
+	$tos=$fuser['k_poliv_time']-time();
+	echo "<div class='rowup'>";
+	echo "<img src='/plugins/farm/img/irrigation_small.png' alt='' class='rpg' /> 你现在用喷头浇水。<br /><img src='/plugins/farm/img/time.png' alt='' class='rpg' /> 再等一会 ".sklon_after_number("$tos","一秒","秒","秒",1)."";
+	echo "</div>";
+	echo "<div class='rowdown'>";
+	echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/?".$passgen."'>更新</a>";
+	echo "</div>";
+	include_once '../../sys/inc/tfoot.php';
 }
 
-if ($fuser['k_posadka_time']>time())
-{
-$tos=$fuser['k_posadka_time']-time();
-echo "<div class='rowup'>";
-echo "<img src='/plugins/farm/img/seeder_small.png' alt='' class='rpg' /> 你现在用播种机把植物种在花土地上。<br /><img src='/plugins/farm/img/time.png' alt='' class='rpg' /> 再等一会 ".sklon_after_number("$tos","一秒","秒","秒",1)."";
-echo "</div>";
-echo "<div class='rowdown'>";
-echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/?".$passgen."'>更新</a>";
-echo "</div>";
-include_once '../../sys/inc/tfoot.php';
-exit();
+if ($fuser['k_posadka_time']>time()) {
+	$tos=$fuser['k_posadka_time']-time();
+	echo "<div class='rowup'>";
+	echo "<img src='/plugins/farm/img/seeder_small.png' alt='' class='rpg' /> 你现在用播种机把植物种在花土地上。<br /><img src='/plugins/farm/img/time.png' alt='' class='rpg' /> 再等一会 ".sklon_after_number("$tos","一秒","秒","秒",1)."";
+	echo "</div>";
+	echo "<div class='rowdown'>";
+	echo "<img src='/img/add.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/?".$passgen."'>更新</a>";
+	echo "</div>";
+	include_once '../../sys/inc/tfoot.php';
 }
-?>
