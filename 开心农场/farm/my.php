@@ -274,7 +274,7 @@ if (isset($_GET['add'])) {
         echo "</td>";
         echo "</tr>";
         echo "<tr><td>";
-        echo "" . $act . "";
+        echo $act;
         echo "</td></tr>";
         echo "</table>";
         echo "</div>";
@@ -309,7 +309,7 @@ $plcont = dbresult(dbquery("SELECT COUNT(*) FROM `farm_semen` WHERE `id_user` = 
 if ($plcont != 0) {
     $plseed = dbarray(dbquery("SELECT * FROM `farm_semen` WHERE `id_user` = '" . $user['id'] . "' ORDER BY id DESC LIMIT 1"));
     $pln = dbarray(dbquery("SELECT * FROM `farm_plant` WHERE `id` = '" . $plseed['semen'] . "' LIMIT 1"));
-    $act = "<img src='/plugins/farm/img/plant.png' alt='' class='rpg' /> 种植 <a href='/plugins/farm/gr.php?id=" . $post['id'] . "&plantid=" . $plseed['id'] . "&posadka'>" . $pln['name'] . "</a> 或 <a href='/plugins/farm/gr.php?id=" . $post['id'] . "'>其它植物</a>";
+    //$act = "<img src='/plugins/farm/img/plant.png' alt='' class='rpg' /> 种植 <a href='/plugins/farm/gr.php?id=" . $post['id'] . "&plantid=" . $plseed['id'] . "&posadka'>" . $pln['name'] . "</a> 或 <a href='/plugins/farm/gr.php?id=" . $post['id'] . "'>其它植物</a>";
 }
 $snum = dbresult(dbquery("SELECT COUNT(*) FROM `farm_gr` WHERE `id_user` = '" . $user['id'] . "' AND `semen` = '0'"), 0);
 if ($snum != 0 && $fuser['k_posadka'] != 0) {
