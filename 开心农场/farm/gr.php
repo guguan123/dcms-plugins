@@ -144,7 +144,7 @@ if (isset($_GET['posadka']) && $post && $user['id'] == $post['id_user'] && $post
         dbquery("UPDATE `farm_gr` SET `semen` = $res[semen] WHERE `id` = $int LIMIT 1");
         //dbquery("UPDATE `farm_gr` SET `time_water` = '".(time()+1800)."' WHERE `id` = $int LIMIT 1");
         dbquery("UPDATE `farm_gr` SET `time` = '$t' WHERE `id` = $int LIMIT 1");
-        dbquery("UDATE `farm_gr` SET `udobr` = '0' WHERE `id` = $int LIMIT 1");
+        dbquery("UPDATE `farm_gr` SET `udobr` = '0' WHERE `id` = $int LIMIT 1");
         if ($res['kol'] >= 2) {
             dbquery("UPDATE `farm_semen` SET `kol` = `kol`-'1' WHERE `id` = " . intval($_GET['plantid']) . " LIMIT 1");
         } else {
