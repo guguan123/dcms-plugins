@@ -15,7 +15,7 @@ include_once '../../sys/inc/thead.php';
 title();
 aut();
 
-@$int = intval($_GET['id']);
+if ($_GET['id']) $int = intval($_GET['id']);
 
 $fuser = dbarray(dbquery("SELECT * FROM `farm_user` WHERE `uid` = '" . $user['id'] . "' LIMIT 1"));
 

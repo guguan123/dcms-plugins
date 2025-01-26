@@ -39,7 +39,7 @@ if ($post['time'] != NULL) {
     } elseif (($peround >= 25) and ($peround < 50)) {
         $stadija = 1;
         $stname = "成长";
-    } elseif (($poround >= 50) and ($peround < 75)) {
+    } elseif (($peround >= 50) and ($peround < 75)) {
         $stadija = 2;
         $stname = "开花";
     } else {
@@ -77,10 +77,9 @@ if ($post['semen'] != 0) {
     echo "</div>";
 }
 
+if (isset($img)) echo "<div class='rowdown'>" . $img . "<br />";
 
-echo "<div class='rowdown'>" . $img . "<br />";
-
-if ($post['time'] != NULL) {
+if ($post['time'] != NULL && $peround) {
     echo "<img src='/plugins/farm/progr.php?p=$peround' alt='$peround' /><br />";
 }
 
@@ -221,7 +220,7 @@ if ($post['semen'] != 0) {
             }
             echo "土地铺已经浇过水了。下一次浇水是在 " . $timeost . "";
         } else {
-            echo "<a href='/plugins/farm/gr.php?id=" . $int . "&amp;woter'>浇灌</a>";
+            echo "<a href='/plugins/farm/gr.php?id=" . $int . "&amp;water'>浇灌</a>";
         }
         echo "</td></tr></table>";
     }

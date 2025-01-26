@@ -105,7 +105,7 @@ if (isset($_POST['sadit']) && $post && $user['id'] == $post['id_user'] && $post[
         dbquery("UPDATE `farm_user` SET `xp` = " . ($fuser['xp'] - 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
         dbquery("UPDATE `farm_gr` SET `semen` = $res[semen] WHERE `id` = $int LIMIT 1");
         dbquery("UPDATE `farm_gr` SET `udobr` = '0' WHERE `id` = $int LIMIT 1");
-        //dbquery("UPDATE `farm_gr` SET `time_water` = '".(time()+1800)."' WHERE `id` = $int LIMIT 1");
+        dbquery("UPDATE `farm_gr` SET `time_water` = '".(time()+1800)."' WHERE `id` = $int LIMIT 1");
         dbquery("UPDATE `farm_gr` SET `time` = '$t' WHERE `id` = $int LIMIT 1");
         if ($res['kol'] >= 2) {
             dbquery("UPDATE `farm_semen` SET `kol` = `kol`-'1' WHERE `id` = " . intval($_POST['sadit']) . " LIMIT 1");
@@ -176,6 +176,7 @@ if (isset($_GET['get']) && $user['id'] == $post['id_user'] && $post['semen'] != 
         }
 
         if (isset($_SESSION['opyt'])) {
+            $opyt = $_SESSION['opyt'];
             unset($_SESSION['opyt']);
         }
 
@@ -512,7 +513,7 @@ dbquery("UPDATE `farm_gr` SET `time_water` = '".$newtmi."' WHERE `id` = '".$int.
         header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
     }
 }
-if (isset($_GET['woter']) && $post['time_water'] < time()) {
+if (isset($_GET['water']) && $post['time_water'] < time()) {
     if ($fuser['xp'] > 0) {
         $wat = time() + 1800;
         $tmn = $post['time'] - 1800;

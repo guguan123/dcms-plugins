@@ -215,7 +215,7 @@ if (isset($_GET['add'])) {
 
         if ($post['semen'] != 0 && time() > $post['time'] && $post['kol'] == 0) {
             $pt = rand($semen['rand1'], $semen['rand2']);
-            dbquery("UPDATE `farm_gr` SET `kol` = '" . $pt . "' WHERE `id` = '" . $int . "' LIMIT 1");
+            dbquery("UPDATE `farm_gr` SET `kol` = '" . $pt . "' WHERE `id` = '" . $post['id'] . "' LIMIT 1");
         }
 
         if ($post['semen'] == 0) {
