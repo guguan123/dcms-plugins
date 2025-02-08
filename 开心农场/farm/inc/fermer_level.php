@@ -1,6 +1,5 @@
 <?php
 
-
 if($ank['exp']<=150)$level=0;
 elseif($ank['exp']>=151 && $ank['exp']<=300)$level=1;
 elseif($ank['exp']>=301 && $ank['exp']<=800)$level=2;
@@ -74,7 +73,5 @@ elseif($ank['exp']>=7000001 && $ank['exp']<=8000000)$level=70;
 elseif($ank['exp']>=8000001 && $ank['exp']<=9000000)$level=71;
 elseif($ank['exp']>=9000001 && $ank['exp']<=10000000)$level=72;
 elseif($ank['exp']>=10000001 && $ank['exp']<=11000000)$level=73;
-
-
-
-?>
+elseif($ank['exp']>=11000001 && $ank['exp']<=20000000)$level=74;
+elseif($ank['exp']>=20000001)$level=75;
