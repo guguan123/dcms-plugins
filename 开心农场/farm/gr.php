@@ -1,4 +1,5 @@
 <?php
+// 引入必要的文件
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -9,85 +10,102 @@ include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 include_once 'inc/fnc.php';
+
+// 仅允许注册用户访问
 only_reg();
+
+// 设置页面标题
 $set['title'] = '开心农场 :: 花园';
 include_once '../../sys/inc/thead.php';
 title();
 err();
+
+// 验证 GET 参数 id 是否存在且为数字
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 	header("Location: /plugins/farm/garden/");
 	exit;
 }
 
+// 获取农场配置
 $fconf = dbarray(dbquery("SELECT * FROM `farm_conf` ORDER BY id DESC LIMIT 1"));
 
+// 获取当前用户的农场数据
 $fuser = dbarray(dbquery("SELECT * FROM `farm_user` WHERE `uid` = '" . $user['id'] . "' LIMIT 1"));
 
+// 获取指定土地的信息
 $int = intval($_GET['id']);
 $post = dbarray(dbquery("select * from `farm_gr` WHERE  `id` = '$int'  LIMIT 1"));
 $plnt = dbarray(dbquery("SELECT * FROM `farm_plant` WHERE `id` = '$post[semen]' LIMIT 1"));
 
+// 记录农场事件
+/**
+ * 记录农场事件
+ * 
+ * @param string $message 事件消息
+ * @param bool $redirect 是否需要重定向
+ * @param string|null $redirectUrl 重定向的 URL
+ */
+function record_farm_event($message, $redirect = false, $redirectUrl = null) {
+    add_farm_event($message);
+    if ($redirect && $redirectUrl) {
+        header("Location: $redirectUrl");
+        exit;
+    }
+}
 
+// 处理未满足健康值的错误
 if (isset($_GET['unxp'])) {
-	add_farm_event('[red]错误![/red] 要执行此操作，您需要补充[b]健康[/b]');
+    record_farm_event('[red]错误![/red] 要执行此操作，您需要补充[b]健康[/b]');
 }
 
 if (isset($_GET['unxpmy'])) {
-	add_farm_event('[red]错误![/red] 要执行此操作，您需要补充[b]健康[/b]');
-	header("Location: /plugins/farm/garden/");
-	exit;
+    record_farm_event('[red]错误![/red] 要执行此操作，您需要补充[b]健康[/b]', true, "/plugins/farm/garden/");
 }
 
+// 处理种植成功的逻辑
 if (isset($_GET['ok'])) {
 	$semen1 = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($_SESSION['pid']) . "' "));
-	add_farm_event('您成功地种植了 ' . $semen1['name'] . '. 经验 +1, 健康 -1.');
+	record_farm_event('您成功地种植了 ' . $semen1['name'] . '. 经验 +1, 健康 -1.');
 }
 
 if (isset($_GET['udobr_ok'])) {
 	$res = dbarray(dbquery("select * from `farm_udobr_name` WHERE `id` = '" . intval($_SESSION['udobr']) . "' LIMIT 1"));
-	add_farm_event('你成功地使用了' . $res['name'] . '. 经验 +1, 健康 -1.');
+	record_farm_event('您成功地使用了' . $res['name'] . '. 经验 +1, 健康 -1.');
 }
 
+// 处理浇水成功的逻辑
 if (isset($_GET['watok'])) {
-	add_farm_event('你成功地浇水了。收获前的时间缩短了。 [b]半小时[/b].经验 +1, 健康 -1.');
-}
-
-
-if (isset($_GET['sob_okmy'])) {
-	$semen1 = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($_SESSION['pid']) . "' "));
-	add_farm_event('成功组装 ' . $semen1['name'] . '. 经验 +' . intval($_SESSION['opyt']) . ', 健康 -2.');
-	unset($_SESSION['pid']);
-	unset($_SESSION['opyt']);
-	header("Location: /plugins/farm/garden/");
-	exit;
+	record_farm_event('您成功地浇水了。收获前的时间缩短了。 [b]半小时[/b].经验 +1, 健康 -1.');
 }
 
 if (isset($_GET['watokmy'])) {
-	add_farm_event('你成功地浇水了。收获前的时间缩短了。 [b]半小时[/b].经验 +1, 健康 -1.');
-	header("Location: /plugins/farm/garden/");
-	exit;
+	record_farm_event('您成功地浇水了。收获前的时间缩短了。 [b]半小时[/b].经验 +1, 健康 -1.', true, "/plugins/farm/garden/");
 }
 
+// 处理收获成功的逻辑
+if (isset($_GET['sob_okmy'])) {
+	$semen1 = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($_SESSION['pid']) . "' "));
+	record_farm_event('成功获取 ' . $semen1['name'] . '. 经验 +' . intval($_SESSION['opyt']) . ', 健康 -2.', true, "/plugins/farm/garden/");
+	unset($_SESSION['pid']);
+	unset($_SESSION['opyt']);
+}
 
 if (isset($_GET['sob_ok'])) {
 	$semen1 = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($_SESSION['pid']) . "' "));
-	add_farm_event('成功组装 ' . $semen1['name'] . '. 经验 +' . intval($_SESSION['opyt']) . ', 健康 -2.');
+	record_farm_event('成功获取 ' . $semen1['name'] . '. 经验 +' . intval($_SESSION['opyt']) . ', 健康 -2.');
 }
 
 if (isset($_GET['nextok'])) {
 	$semen1 = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($_SESSION['plid']) . "' "));
-	add_farm_event('植物 ' . $semen1['name'] . ' 转至下个赛季 (' . intval($_SESSION['grsezon']) . '). 经验 +' . intval($_SESSION['opyt']) . ', 健康 -2.');
+	record_farm_event('植物 ' . $semen1['name'] . ' 转至下个季节 (' . intval($_SESSION['grsezon']) . '). 经验 +' . intval($_SESSION['opyt']) . ', 健康 -2.');
 }
 
 if (isset($_GET['nextokmy'])) {
 	$semen1 = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($_SESSION['plid']) . "' "));
-	add_farm_event('植物 ' . $semen1['name'] . ' 转至下个赛季 (' . intval($_SESSION['grsezon']) . '). 经验 +' . intval($_SESSION['opyt']) . ', 健康 -2.');
+	record_farm_event('植物 ' . $semen1['name'] . ' 转至下个季节 (' . intval($_SESSION['grsezon']) . '). 经验 +' . intval($_SESSION['opyt']) . ', 健康 -2.', true, "/plugins/farm/garden/");
 	unset($_SESSION['plid']);
 	unset($_SESSION['opyt']);
-	header("Location: /plugins/farm/garden/");
-	exit;
 }
-
 
 if (isset($_POST['sadit']) && $post && $user['id'] == $post['id_user'] && $post['semen'] == 0) {
 	if ($fuser['xp'] > 0) {
@@ -98,7 +116,6 @@ if (isset($_POST['sadit']) && $post && $user['id'] == $post['id_user'] && $post[
 			unset($_SESSION['pid']);
 		}
 		$_SESSION['pid'] = $semen['id'];
-
 
 		$t = time() + $semen['time'];
 		dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
@@ -122,7 +139,6 @@ if (isset($_POST['sadit']) && $post && $user['id'] == $post['id_user'] && $post[
 	}
 }
 
-
 if (isset($_GET['posadka']) && $post && $user['id'] == $post['id_user'] && $post['semen'] == 0 && isset($_GET['plantid']) && is_numeric($_GET['plantid'])) {
 	if ($fuser['xp'] > 0) {
 		$check = dbresult(dbquery("SELECT COUNT(*) FROM `farm_semen` WHERE `id` = '" . intval($_GET['plantid']) . "' AND `id_user` = '$user[id]'"), 0);
@@ -136,7 +152,6 @@ if (isset($_GET['posadka']) && $post && $user['id'] == $post['id_user'] && $post
 			unset($_SESSION['pid']);
 		}
 		$_SESSION['pid'] = $semen['id'];
-
 
 		$t = time() + $semen['time'];
 		dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
@@ -160,7 +175,6 @@ if (isset($_GET['posadka']) && $post && $user['id'] == $post['id_user'] && $post
 		header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
 	}
 }
-
 
 if (isset($_GET['get']) && $user['id'] == $post['id_user'] && $post['semen'] != 0 && $post['time'] < time()) {
 	if ($fuser['xp'] > 0) {
@@ -270,7 +284,6 @@ if (isset($_GET['getg']) && $user['id'] == $post['id_user'] && $post['semen'] !=
 	if ($fuser['xp'] > 0) {
 		$semen = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($post['semen']) . "' "));
 
-
 		if (isset($_SESSION['pid'])) {
 			unset($_SESSION['pid']);
 		}
@@ -308,7 +321,6 @@ if (isset($_GET['getg']) && $user['id'] == $post['id_user'] && $post['semen'] !=
 	}
 }
 
-
 $sznw = $post['sezon'] + 1;
 
 if (isset($_GET['next']) && $user['id'] == $post['id_user'] && $post['semen'] != 0 && $post['time'] < time() && ($sznw < $plnt['let'] || $sznw == $plnt['let'])) {
@@ -327,7 +339,6 @@ if (isset($_GET['next']) && $user['id'] == $post['id_user'] && $post['semen'] !=
 		if ($sezonnew > $semenlet) {
 			header("Location: /plugins/farm/gr.php?id=" . $int . "&get");
 		}
-
 
 		if (isset($_SESSION['grsezon'])) {
 			unset($_SESSON['grsezon']);
@@ -420,7 +431,6 @@ if (isset($_GET['next']) && $user['id'] == $post['id_user'] && $post['semen'] !=
 	}
 }
 
-
 if (isset($_GET['nextmy']) && $user['id'] == $post['id_user'] && $post['semen'] != 0 && $post['time'] < time() && ($sznw < $plnt['let'] || $sznw == $plnt['let'])) {
 	if ($fuser['xp'] > 0) {
 		$semen = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($post['semen']) . "' "));
@@ -432,7 +442,6 @@ if (isset($_GET['nextmy']) && $user['id'] == $post['id_user'] && $post['semen'] 
 		if ($sezonnew > $semenlet) {
 			header("Location: /plugins/farm/gr.php?id=" . $int . "&get");
 		}
-
 
 		if (isset($_SESSION['grsezon'])) {
 			unset($_SESSON['grsezon']);
@@ -474,8 +483,6 @@ if (isset($_GET['nextmy']) && $user['id'] == $post['id_user'] && $post['semen'] 
 	}
 }
 
-
-
 if (isset($_POST['udobr']) && $post && $user['id'] == $post['id_user'] && $post['semen'] != 0) {
 	if ($fuser['xp'] > 0) {
 		$res = dbarray(dbquery("select * from `farm_udobr` WHERE `id` = '" . intval($_POST['udobr']) . "' "));
@@ -487,7 +494,6 @@ if (isset($_POST['udobr']) && $post && $user['id'] == $post['id_user'] && $post[
 		}
 
 		$_SESSION['udobr'] = $semen['id'];
-
 
 		dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
 		dbquery("UPDATE `farm_user` SET `xp` = " . ($fuser['xp'] - 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
@@ -530,8 +536,6 @@ if (isset($_GET['water']) && $post['time_water'] < time()) {
 	}
 }
 
-
-
 if (isset($_GET['water']) && $post['time_water'] < time()) {
 	if ($fuser['xp'] > 0) {
 		$wat = time() + 1800;
@@ -549,23 +553,26 @@ if (isset($_GET['water']) && $post['time_water'] < time()) {
 	}
 }
 
+// 自动加载用户信息
 aut();
 include 'inc/str.php';
 
+// 记录农场事件
 farm_event();
 
+// 检查土地是否属于当前用户
 if ($post) {
 	if ($user['id'] == $post['id_user']) {
-
-
+		// 包含土地相关的逻辑
 		include 'inc/gr.php';
 	} else {
-		echo "<div class='err'>这不是你的土地</div>";
+		echo "<div class='err'>这不是您的土地</div>";
 	}
 } else {
 	echo "<div class='err'>不存在这样的土地</div>";
 }
 
+// 页面底部导航
 echo "<div class='rowdown'>";
 echo "<img src='/plugins/farm/img/garden.png' alt='' class='rpg' /> <a href='/plugins/farm/garden/'>返回</a><br/>";
 echo "<img src='/plugins/farm/img/back.png' alt='' class='rpg' /> <a href='/plugins/farm/'>我的农场</a>";
