@@ -107,36 +107,76 @@ if (isset($_GET['nextokmy'])) {
 	unset($_SESSION['opyt']);
 }
 
+/**
+ * 通用处理农场操作的函数
+ * 
+ * @param string $action 操作类型
+ * @param array $params 操作所需的参数
+ */
+function processFarmAction($action, $params = []) {
+    global $user, $fuser, $post, $int;
+
+    if ($fuser['xp'] <= 0) {
+        header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
+        exit;
+    }
+
+    switch ($action) {
+        case 'plant':
+            $semen = $params['semen'];
+            $t = time() + $semen['time'];
+            dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + 1) . ", `xp` = " . ($fuser['xp'] - 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
+            dbquery("UPDATE `farm_gr` SET `semen` = {$params['semen_id']}, `udobr` = '0', `time_water` = '" . (time() + 1800) . "', `time` = '$t' WHERE `id` = $int LIMIT 1");
+            if ($params['semen_kol'] >= 2) {
+                dbquery("UPDATE `farm_semen` SET `kol` = `kol` - 1 WHERE `id` = {$params['semen_id']} LIMIT 1");
+            } else {
+                dbquery("DELETE FROM `farm_semen` WHERE `id` = {$params['semen_id']}");
+            }
+            dbquery("UPDATE `farm_user` SET `posadka` = `posadka` + 1 WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
+            header("Location: /plugins/farm/gr.php?gr=" . $int . "&ok");
+            break;
+
+        case 'harvest':
+            $semen = $params['semen'];
+            $opyt = $semen['oput'] * $post['kol'];
+            dbquery("INSERT INTO `farm_ambar` (`kol`, `semen`, `id_user`) VALUES ('{$params['harvest_kol']}', '{$params['semen_id']}', '{$user['id']}')");
+            dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + $opyt) . ", `xp` = " . ($fuser['xp'] - 2) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
+            dbquery("UPDATE `farm_gr` SET `semen` = '0', `time` = NULL, `udobr` = '0', `water` = '0', `kol` = '0', `time_water` = NULL, `vskop` = '0', `sezon` = '1' WHERE `id` = $int LIMIT 1");
+            header("Location: /plugins/farm/gr.php?id=" . $int . "&sob_ok");
+            break;
+
+        case 'water':
+            $wat = time() + 1800;
+            $tmn = $post['time'] - 1800;
+            dbquery("UPDATE `farm_gr` SET `time` = '$tmn', `time_water` = '$wat' WHERE `id` = $int LIMIT 1");
+            dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + 1) . ", `xp` = " . ($fuser['xp'] - 1) . ", `poliv` = `poliv` + 1 WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
+            header("Location: /plugins/farm/gr.php?id=" . $int . "&watok");
+            break;
+
+        case 'fertilize':
+            $semen = $params['semen'];
+            dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + 1) . ", `xp` = " . ($fuser['xp'] - 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
+            dbquery("UPDATE `farm_gr` SET `udobr` = '1', `time` = `time` - {$semen['time']} WHERE `id` = $int LIMIT 1");
+            if ($params['udobr_kol'] >= 2) {
+                dbquery("UPDATE `farm_udobr` SET `kol` = `kol` - 1 WHERE `id` = {$params['udobr_id']} LIMIT 1");
+            } else {
+                dbquery("DELETE FROM `farm_udobr` WHERE `id` = {$params['udobr_id']}");
+            }
+            dbquery("UPDATE `farm_user` SET `udobrenie` = `udobrenie` + 1 WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
+            header("Location: /plugins/farm/gr.php?id=" . $int . "&udobr_ok");
+            break;
+
+        default:
+            header("Location: /plugins/farm/gr.php?id=" . $int . "&error");
+            break;
+    }
+}
+
+// 使用通用函数处理操作
 if (isset($_POST['sadit']) && $post && $user['id'] == $post['id_user'] && $post['semen'] == 0) {
-	if ($fuser['xp'] > 0) {
-		$res = dbarray(dbquery("select * from `farm_semen` WHERE `id` = '" . intval($_POST['sadit']) . "' "));
-		$semen = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '$res[semen]' "));
-
-		if (isset($_SESSION['pid'])) {
-			unset($_SESSION['pid']);
-		}
-		$_SESSION['pid'] = $semen['id'];
-
-		$t = time() + $semen['time'];
-		dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-		dbquery("UPDATE `farm_user` SET `xp` = " . ($fuser['xp'] - 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-		dbquery("UPDATE `farm_gr` SET `semen` = $res[semen] WHERE `id` = $int LIMIT 1");
-		dbquery("UPDATE `farm_gr` SET `udobr` = '0' WHERE `id` = $int LIMIT 1");
-		dbquery("UPDATE `farm_gr` SET `time_water` = '".(time()+1800)."' WHERE `id` = $int LIMIT 1");
-		dbquery("UPDATE `farm_gr` SET `time` = '$t' WHERE `id` = $int LIMIT 1");
-		if ($res['kol'] >= 2) {
-			dbquery("UPDATE `farm_semen` SET `kol` = `kol`-'1' WHERE `id` = " . intval($_POST['sadit']) . " LIMIT 1");
-		} else {
-			dbquery("DELETE FROM `farm_semen` WHERE `id` = " . intval($_POST['sadit']) . "");
-		}
-		dbquery("UPDATE `farm_user` SET `posadka` = `posadka`+'1' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-
-		header("Location: /plugins/farm/gr.php?gr=" . $int . "&ok");
-	}
-
-	if ($fuser['xp'] < 0) {
-		header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
-	}
+    $res = dbarray(dbquery("SELECT * FROM `farm_semen` WHERE `id` = '" . intval($_POST['sadit']) . "'"));
+    $semen = dbarray(dbquery("SELECT * FROM `farm_plant` WHERE `id` = '{$res['semen']}'"));
+    processFarmAction('plant', ['semen' => $semen, 'semen_id' => $res['semen'], 'semen_kol' => $res['kol']]);
 }
 
 if (isset($_GET['posadka']) && $post && $user['id'] == $post['id_user'] && $post['semen'] == 0 && isset($_GET['plantid']) && is_numeric($_GET['plantid'])) {
@@ -177,107 +217,8 @@ if (isset($_GET['posadka']) && $post && $user['id'] == $post['id_user'] && $post
 }
 
 if (isset($_GET['get']) && $user['id'] == $post['id_user'] && $post['semen'] != 0 && $post['time'] < time()) {
-	if ($fuser['xp'] > 0) {
-		$semen = dbarray(dbquery("select * from `farm_plant` WHERE `id` = '" . intval($post['semen']) . "' "));
-
-		if ($post['sezon'] < $semen['let']) {
-			header("Location: /plugins/farm/gr/$int");
-			exit();
-		}
-
-		if (isset($_SESSION['pid'])) {
-			unset($_SESSION['pid']);
-		}
-
-		if (isset($_SESSION['opyt'])) {
-			$opyt = $_SESSION['opyt'];
-			unset($_SESSION['opyt']);
-		}
-
-		$opyt0 = $semen['oput'] * $post['kol'];
-		$_SESSION['pid'] = $semen['id'];
-		$_SESSION['opyt'] = $opyt0;
-
-		if ($fconf['weather'] == 1) {
-			$wth = $post['kol'] + 3;
-		}
-		if ($fconf['weather'] == 2) {
-			$wth = $post['kol'] + 2;
-		}
-		if ($fconf['weather'] == 3) {
-			$wth = $post['kol'] - 1;
-			if ($fuser['teplica'] == 1) {
-				$wth = $post['kol'];
-			}
-		}
-		if ($fconf['weather'] == 4) {
-			$wth = $post['kol'] - 3;
-			if ($fuser['teplica'] == 1) {
-				$wth = $post['kol'];
-			}
-		}
-		if ($fconf['weather'] == 5) {
-			$wth = $post['kol'] + 1;
-		}
-
-		if ($fuser['selection'] == 0) {
-			$ums = 0;
-		}
-		if ($fuser['selection'] == 1) {
-			$prep = $wth / 100;
-			$ums = ceil($prep * 5);
-		}
-		if ($fuser['selection'] == 2) {
-			$prep = $wth / 100;
-			$ums = ceil($prep * 10);
-		}
-		if ($fuser['selection'] == 3) {
-			$prep = $wth / 100;
-			$ums = ceil($prep * 15);
-		}
-		if ($fuser['selection'] == 4) {
-			$prep = $wth / 100;
-			$ums = ceil($prep * 20);
-		}
-		if ($fuser['selection'] == 5) {
-			$prep = $wth / 100;
-			$ums = ceil($prep * 25);
-		}
-
-		$wth = $wth + $ums;
-
-		dbquery("INSERT INTO `farm_ambar` (`kol` , `semen`, `id_user`) VALUES  ('" . $wth . "', '" . intval($post['semen']) . "', '" . $user['id'] . "') ");
-
-		dbquery("UPDATE `farm_user` SET `exp` = '" . $opyt . "' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-
-		$xp = $fuser['xp'] - 2;
-		dbquery("UPDATE `farm_user` SET `xp` = '" . $xp . "' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-
-		$opyt1 = $semen['oput'] * $post['kol'];
-
-		dbquery("UPDATE `farm_user` SET `exp` = '" . ($fuser['exp'] + $opyt1) . "' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-
-		dbquery("UPDATE `farm_gr` SET `semen` = '0' WHERE `id` = '" . $int . "' LIMIT 1");
-
-		dbquery("UPDATE `farm_gr` SET `time` = NULL WHERE `id` = '" . $int . "' LIMIT 1");
-
-		dbquery("UPDATE `farm_gr` SET `udobr` = '0' WHERE `id` = '" . $int . "' LIMIT 1");
-
-		dbquery("UPDATE `farm_gr` SET `water` = '0' WHERE `id` = '" . $int . "' LIMIT 1");
-
-		dbquery("UPDATE `farm_gr` SET `kol` = '0' WHERE `id` = '" . $int . "' LIMIT 1");
-
-		dbquery("UPDATE `farm_gr` SET `time_water` = NULL WHERE `id` = '" . $int . "' LIMIT 1");
-
-		dbquery("UPDATE `farm_gr` SET `vskop` = '0' WHERE `id` = '" . $int . "' LIMIT 1");
-
-		dbquery("UPDATE `farm_gr` SET `sezon` = '1' WHERE `id` = '" . $int . "' LIMIT 1");
-
-		header("Location: /plugins/farm/gr.php?id=" . $int . "&sob_ok");
-	}
-	if ($fuser['xp'] < 0) {
-		header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
-	}
+    $semen = dbarray(dbquery("SELECT * FROM `farm_plant` WHERE `id` = '" . intval($post['semen']) . "'"));
+    processFarmAction('harvest', ['semen' => $semen, 'semen_id' => $post['semen'], 'harvest_kol' => $post['kol']]);
 }
 
 if (isset($_GET['getg']) && $user['id'] == $post['id_user'] && $post['semen'] != 0 && $post['time'] < time()) {
@@ -484,73 +425,13 @@ if (isset($_GET['nextmy']) && $user['id'] == $post['id_user'] && $post['semen'] 
 }
 
 if (isset($_POST['udobr']) && $post && $user['id'] == $post['id_user'] && $post['semen'] != 0) {
-	if ($fuser['xp'] > 0) {
-		$res = dbarray(dbquery("select * from `farm_udobr` WHERE `id` = '" . intval($_POST['udobr']) . "' "));
-
-		$semen = dbarray(dbquery("select * from `farm_udobr_name` WHERE `id` = '$res[udobr]' "));
-
-		if (isset($_SESSION['udobr'])) {
-			unset($_SESSION['udobr']);
-		}
-
-		$_SESSION['udobr'] = $semen['id'];
-
-		dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-		dbquery("UPDATE `farm_user` SET `xp` = " . ($fuser['xp'] - 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-		dbquery("UPDATE `farm_gr` SET `udobr` = '1' WHERE `id` = $int LIMIT 1");
-		dbquery("UPDATE `farm_gr` SET `time` = `time`- $semen[time] WHERE `id` = $int LIMIT 1");
-
-		/*
-$newtmi = $post['time_water']+$semen['time'];
-
-dbquery("UPDATE `farm_gr` SET `time_water` = '".$newtmi."' WHERE `id` = '".$int."' LIMIT 1");
-*/
-
-		if ($res['kol'] >= 2) {
-			dbquery("UPDATE `farm_udobr` SET `kol` = `kol`-'1' WHERE `id` = " . intval($_POST['udobr']) . " LIMIT 1");
-		} else {
-			dbquery("DELETE FROM `farm_udobr` WHERE `id` = " . intval($_POST['udobr']) . "");
-		}
-		dbquery("UPDATE `farm_user` SET `udobrenie` = `udobrenie`+'1' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-
-		header("Location: /plugins/farm/gr.php?id=" . $int . "&udobr_ok");
-	}
-	if ($fuser['xp'] < 0) {
-		header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
-	}
-}
-if (isset($_GET['water']) && $post['time_water'] < time()) {
-	if ($fuser['xp'] > 0) {
-		$wat = time() + 1800;
-		$tmn = $post['time'] - 1800;
-		dbquery("UPDATE `farm_gr` SET `time` = '$tmn' WHERE `id` = $int LIMIT 1");
-		dbquery("UPDATE `farm_gr` SET `time_water` = '$wat' WHERE `id` = $int LIMIT 1");
-		dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-		dbquery("UPDATE `farm_user` SET `xp` = " . ($fuser['xp'] - 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-		dbquery("UPDATE `farm_user` SET `poliv` = `poliv`+'1' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-
-		header("Location: /plugins/farm/gr.php?id=" . $int . "&watok");
-	}
-	if ($fuser['xp'] < 0) {
-		header("Location: /plugins/farm/gr.php?id=" . $int . "&unxp");
-	}
+    $res = dbarray(dbquery("SELECT * FROM `farm_udobr` WHERE `id` = '" . intval($_POST['udobr']) . "'"));
+    $semen = dbarray(dbquery("SELECT * FROM `farm_udobr_name` WHERE `id` = '{$res['udobr']}'"));
+    processFarmAction('fertilize', ['semen' => $semen, 'udobr_id' => $res['id'], 'udobr_kol' => $res['kol']]);
 }
 
 if (isset($_GET['water']) && $post['time_water'] < time()) {
-	if ($fuser['xp'] > 0) {
-		$wat = time() + 1800;
-		$tmn = $post['time'] - 1800;
-		dbquery("UPDATE `farm_gr` SET `time` = '$tmn' WHERE `id` = $int LIMIT 1");
-		dbquery("UPDATE `farm_gr` SET `time_water` = '$wat' WHERE `id` = $int LIMIT 1");
-		dbquery("UPDATE `farm_user` SET `exp` = " . ($fuser['exp'] + 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-		dbquery("UPDATE `farm_user` SET `xp` = " . ($fuser['xp'] - 1) . " WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-		dbquery("UPDATE `farm_user` SET `poliv` = `poliv`+'1' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
-
-		header("Location: /plugins/farm/gr.php?id=" . $int . "&watokmy");
-	}
-	if ($fuser['xp'] < 0) {
-		header("Location: /plugins/farm/gr.php?id=" . $int . "&unxpmy");
-	}
+    processFarmAction('water');
 }
 
 // 自动加载用户信息
