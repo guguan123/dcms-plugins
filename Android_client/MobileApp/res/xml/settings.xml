@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/notif_about" >
+        <CheckBoxPreference
+            android:key="mail"
+            android:title="@string/notif_about_mail" />
+        <CheckBoxPreference
+            android:key="discussions"
+            android:title="@string/notif_about_discussions" />
+        <CheckBoxPreference
+            android:key="notification"
+            android:title="@string/notif_about_notification" />
+        <CheckBoxPreference
+            android:key="tape"
+            android:title="@string/notif_about_tape" />
+        <CheckBoxPreference
+            android:key="friends"
+            android:title="@string/notif_about_friends" />
+        <CheckBoxPreference
+            android:key="guests"
+            android:title="@string/notif_about_guests" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/prefs_adding" >
+        <CheckBoxPreference
+            android:key="sound"
+            android:title="@string/prefs_sound" />
+        <CheckBoxPreference
+            android:key="vibration"
+            android:title="@string/prefs_vibration" />
+        <CheckBoxPreference
+            android:key="onlyWiFi"
+            android:title="@string/prefs_onlyWiFi" />
+
+        <ListPreference
+            android:entries="@array/refreshs_values"
+            android:entryValues="@array/refreshs_entries"
+            android:key="refresh"
+            android:title="@string/prefs_interval" />
+    </PreferenceCategory>
+
+    <Preference
+        android:key="exit"
+        android:summary="nick"
+        android:title="@string/exit" />
+
+</PreferenceScreen>

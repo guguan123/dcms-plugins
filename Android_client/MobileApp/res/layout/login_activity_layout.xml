@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MainBackground"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/main_background"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16pt"
+        android:layout_marginRight="16pt"
+        android:background="@drawable/login_background"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4pt" >
+
+            <EditText
+                android:id="@+id/nick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="@string/field_hint_nick"
+                android:lines="1"
+                android:maxLength="50"
+                android:minLines="0"
+                android:padding="4pt"
+                android:scrollbars="horizontal"
+                android:text="@string/def_nick"
+                android:textColor="#FFF"
+                android:textColorHint="#EDEDED" >
+            </EditText>
+        </LinearLayout>
+
+        <ImageView
+            style="@style/horiz_sep"
+            android:layout_marginLeft="2pt"
+            android:layout_marginRight="2pt"
+            android:contentDescription="@string/idesc_horiz_sep" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4pt" >
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="@string/field_hint_password"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:maxLength="50"
+                android:minLines="0"
+                android:padding="4pt"
+                android:scrollbars="horizontal"
+                android:text="@string/def_password"
+                android:textColor="#FFF"
+                android:textColorHint="#EDEDED" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:text="@string/button_login"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

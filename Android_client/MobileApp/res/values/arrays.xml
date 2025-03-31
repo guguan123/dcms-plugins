@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="refreshs_entries">
+        <item>0</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+        <item>180</item>
+    </string-array>
+    <string-array name="refreshs_values">
+        <item>关闭</item>
+        <item>5 秒</item>
+        <item>10 秒</item>
+        <item>15 秒</item>
+        <item>30 秒</item>
+        <item>1 分钟</item>
+        <item>1 分钟 30 秒</item>
+        <item>2 分钟</item>
+        <item>3 分钟</item>
+    </string-array>
+
+</resources>

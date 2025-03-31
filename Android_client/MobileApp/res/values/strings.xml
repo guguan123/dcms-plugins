@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">移动客户端</string>
+    <string name="action_settings">设置</string>
+    <string name="dialog_loading">加载中</string>
+    <string name="no_connection">没有互联网连接</string>
+    <string name="dialog_continue">继续</string>
+    <string name="dialog_yes">是</string>
+    <string name="dialog_no">否</string>
+    <string name="exit">退出</string>
+    <string name="notif_about">通知关于</string>
+    <string name="prefs_adding">附加</string>
+    <string name="prefs_sound">声音</string>
+    <string name="prefs_vibration">振动</string>
+    <string name="prefs_onlyWiFi">仅 Wi-Fi</string>
+    <string name="prefs_interval">刷新间隔</string>
+    <string name="second">秒</string>
+    <string name="seconds">秒</string>
+    <string name="minute">分钟</string>
+    <string name="minutes">分钟</string>
+    <string name="field_hint_nick">输入你的昵称</string>
+    <string name="field_hint_password">输入密码</string>
+    <string name="button_login">登录</string>
+    <string name="error_empty_nick">请输入你的昵称</string>
+    <string name="error_empty_password">请输入你的密码</string>
+    <string name="error_wrong_nick_or_password">昵称或密码错误</string>
+    <string name="message_login_success">您已成功登录</string>
+    <string name="notif_about_mail">新消息</string>
+    <string name="notif_about_discussions">讨论</string>
+    <string name="notif_about_notification">通知</string>
+    <string name="notif_about_tape">时间线记录</string>
+    <string name="notif_about_friends">好友请求</string>
+    <string name="notif_about_guests">新访客</string>
+    <string name="error_some_error">发生错误</string>
+    <string name="def_nick">killer</string>
+    <string name="def_password">ajtgjm</string>
+    <string name="idesc_horiz_sep">水平分隔符</string>
+
+</resources>

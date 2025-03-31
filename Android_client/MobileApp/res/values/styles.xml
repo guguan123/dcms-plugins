@@ -1,0 +1,17 @@
+<resources>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="MainBackground">
+        <item name="android:background">@drawable/main_background</item>
+    </style>
+
+    <style name="horiz_sep">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">#CCC</item>
+    </style>
+
+</resources>
