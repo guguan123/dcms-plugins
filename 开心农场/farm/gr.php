@@ -234,7 +234,8 @@ if (isset($_GET['get']) && $user['id'] == $post['id_user'] && $post['semen'] != 
 
 		dbquery("INSERT INTO `farm_ambar` (`kol` , `semen`, `id_user`) VALUES  ('" . $wth . "', '" . intval($post['semen']) . "', '" . $user['id'] . "') ");
 
-		dbquery("UPDATE `farm_user` SET `exp` = '" . $opyt . "' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
+		// 临时加一个判断，暂时解决无法收获第一个农田的农作物问题
+		if(!empty($opyt)) dbquery("UPDATE `farm_user` SET `exp` = '" . $opyt . "' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
 
 		$xp = $fuser['xp'] - 2;
 		dbquery("UPDATE `farm_user` SET `xp` = '" . $xp . "' WHERE `uid` = '" . $user['id'] . "' LIMIT 1");
